@@ -1,0 +1,12 @@
+
+.main{
+    border: 0;
+    padding: 0;
+    
+}
+
+.unoLogo{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
