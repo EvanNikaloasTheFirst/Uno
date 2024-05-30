@@ -6,21 +6,25 @@ import { useState } from "react";
 import { useRouter } from 'next/router';
 
 export default function Home() {
-  // var [moveToNextScreen, setmoveToNextScreen] = useState(false); 
   const router = useRouter();
+  try{
+    // clear the local storage when homepage is loaded
+  localStorage.removeItem('amountOfPlayer');
+  }catch(e){
+    // pass on
+  }
   var selectedPlayers = (amount) =>{
     localStorage.setItem("amountOfPlayer" ,amount);
-    
-    // router.push("/game/index.jsx");
-    
+    console.log("Clicked " + amount)
   }
  var [showPlayersButton, setShowPlayerButton] = useState(false); // initially set variable to false. setShowPlayerButton used to update variable
   const sayHello = () => {
-    console.log("Hello");
     showButton(); // shows the option for amount of players to use
   };
 
-  var amountOfPlayer = [2,3,4];
+  
+
+  var amountOfPlayer = [1,2,3];
 
   var showButton = () =>{
     setShowPlayerButton(prevState => !prevState);
@@ -42,18 +46,23 @@ export default function Home() {
           <img src="/uno_logo.png" className={styles.unoLogo}/>
           
         </div>
+        
         <button className={styles.startGame} onClick={sayHello}>Start Game</button>
         <div>
+          
           <div className={styles.amountOfPlayers}>
+          <p className={styles.amtPlayerTxt}>Select the amount of players</p>
 
           { showPlayersButton && (
               <ul>
                 {amountOfPlayer.map(amount => (
                   <li key={amount}>
                     <a href="/game">
-
-                    <button className={styles.startGame} onClick={selectedPlayers(amount)}>
-                      {amount + " players"}
+                    <button
+          className={styles.startGame}
+          //  onClick={() => selectedPlayers(amount)} ensures that the selectedPlayers function is only called when the button is actually clicked
+          onClick={() => selectedPlayers(amount)}> 
+                      {amount}
                     </button>
 </a>
                   </li>

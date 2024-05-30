@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import Card from "@src/classes/Card";
+import Card from "@/classes/Card.jsx";
 class Player{
 
-
-    constructor(props){
-        super(props)
-            this.state = {
-                colour:props.name,
-                imgSrc:props.imgSrc,
-                uno:props.uno,
-                allCards: [
-                    {id:1, colour: 'red', value: '6', imgSrc:'example/path'},
-                    {id:2, colour: 'green', value: '7', imgSrc:'example/path'},
-                    {id:3, colour: 'yellow', value: '3', imgSrc:'example/path'},
-                ]
-            };
+    constructor(name,allCards){
+                this.name = name;
+                this.allCards=allCards;
         }
 
+ getDeck(){
+    return this.allCards;
+}
+
+ getName(){
+    return this.name;
+}
+
+ getAllCards(){
+    return this.allCards;
+}
 // boolean check to see if the user can call uno
         setCallUno(){
             const cardsLen = this.state.allCards.length;
@@ -37,11 +38,12 @@ class Player{
         removeCard(id){
             for (let i = 0; i < cardsLen; i++){
                 if (allCards[i].id == id){
-                        this.state.allCards.splice(i,1);
+                        this.allCards.splice(i,1);
                         break
                 }
             }
         }
+        
 
 static generateCards(colour){ 
             // 
@@ -75,3 +77,5 @@ static generateCards(colour){
 }
     
 }
+
+export default Player;
