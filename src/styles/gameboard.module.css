@@ -2,6 +2,7 @@
 .main{
     border: 0;
     padding: 0;
+  
     
 }
 
@@ -9,4 +10,90 @@
     width: 100px;
     display: flex;
     justify-content: center;
+    top: 50px;
+}
+
+
+.playersHands{
+    list-style-type: none;
+}
+
+.player{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 50px;
+}
+
+.player .playersCards{
+    position: relative;
+    right: 200px;
+}
+
+.playerTwo p {
+    position: relative;
+    top: 150px;    
+}
+/* ---Player Two cards */
+.playerTwo{
+    position: absolute;
+    left: 0;
+    top: 100px;
+    transform: rotate(90deg);
+}
+.playerTwo ul{
+    position: relative;
+    transform: rotate(90deg);
+}
+
+
+/* ----------- */
+.playerThree{
+    position: absolute;
+    right: 0;
+    transform: rotate(90deg);
+}
+.playerThree .playersCards ul{
+    position: relative;
+    right:  50px;
+    transform: rotate(90deg);
+    }
+
+    /* -------- */
+.playerFour p {
+        position: relative;
+        top: 200px;
+    }
+.playerFour{
+    position: absolute;
+    bottom: 500px;
+    transform: rotate(180deg);
+}
+.playerFour .playersCards ul{
+    position: relative;
+    transform: rotate(90deg);
+}
+
+
+
+/* Styling the cardds and players deck */
+.unoCard{
+    width: 55px;
+}
+
+.playersCards ul{
+    display: flex;
+    flex-direction: row;
+}
+
+.playersCards ul li{
+    list-style-type: none;
+}
+.playersCards ul li img{
+    padding: 10px;
+}
+
+
+.playersCards ul li img:hover{
+    position: relative;
+   bottom: 10px;
 }
