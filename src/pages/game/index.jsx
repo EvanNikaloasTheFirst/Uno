@@ -1,29 +1,35 @@
 import Head from "next/head";
 import Image from "next/image";
-
 import styles from "@/styles/gameboard.module.css";
 import mainStyles from "@/styles/Home.module.css";
 import Game from "@/classes/Game.jsx";
 import Player from "@/classes/Player.jsx";
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import { appendMutableCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export default function Home() {
   var allPlayer = [];
-
   const [lobby, setLobby] = useState([]); // using useState ensures lobby is populated just once
   const [Me, setMe] = useState(new Map());
   const [PlayerOne, setPlayerOne] = useState(new Map());
   const [PlayerTwo, setPlayerTwo] = useState(new Map());
   const [PlayerThree, setPlayerThree] = useState(new Map());
   const [allPlayers, setAllPlayers] = useState([]);
-  
+  const [playersTurn, setPlayerTurn] = useState(null);
+  const [count, setCount] = useState(0);
+
+  const [deck, setDeck] = useState([]);
+
+
   var cardsDeck = Game.gameStart();
   var MyPlayer = new Player("Evangelos", Me);
 
 
   const [storedAmount, setStoredAmount] = useState(null); // set state 
+
+ 
+  
 
   const retrieveAmount = () => {
     try {
@@ -58,6 +64,8 @@ export default function Home() {
     }
   };
 
+  
+
   // sets up the card deck for each player
   useEffect(() => {
     retrieveAmount();
@@ -70,15 +78,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log("Lobby size: " + lobby.length)
-    if (storedAmount !== null) {
+    // console.log("Lobby size: " + lobby.length)
 
+    if (storedAmount !== null) {
       // Ai bots
       var ai1 =  new Player("Jerry", PlayerOne);
       var ai2 =  new Player("Johan", PlayerTwo);
       var ai3 =  new Player("Tracey", PlayerThree);
-       
-     
       let updatedAllPlayer = []; // Create a new array to hold the updated player list
 
       switch(lobby.length){
@@ -103,19 +109,68 @@ export default function Home() {
       updatedAllPlayer[MyPlayer,ai1,ai2,ai3];
       break
       }
-
       setAllPlayers(updatedAllPlayer);
-
-      // for (let i = 0; i < lobby.length; i++) {
-      //   console.log(allPlayer[i].getName() + " Length of cards: " +  allPlayer[i].getAllCards().length);
-      // }
-      console.log( Me.length);
-      Me.forEach(value =>{
-        console.log(value.name)
-      })
-
     }
   }, [storedAmount]);
+
+  var playerTurns =  ["Me","PlayerOne","PlayerTwo"];
+
+  // Make AI place a card
+
+  const aiPlays = () => {
+    console.log(  "Played")
+  }
+
+  const setPlayerGo = useCallback(() => {
+    setCount((prevCount) => {
+        const newCount = prevCount + 1;
+        console.log(playersTurn + " < Turn " + newCount);
+        return newCount > 2 ? 0 : newCount;
+    });
+}, [playersTurn]);
+
+useEffect(() => {
+  setPlayerTurn(playerTurns[count]);
+}, [count, playerTurns]);
+
+
+
+
+  const placeCard = (card) =>{
+
+    var index = null;
+
+    var card;
+    // Looks for the card that has been selected & stores it in a variable
+    for (let i = 0; i < Me.length; i++){
+      if (card.value == Me[i].value && card.colour === Me[i].colour){
+        index = i;
+        card = Me[i];
+        break;
+      }
+    }
+      // Log the card placed down
+      console.log("Card placed down " + card.value + " : " + card.colour);
+
+      // Create a new array without the matching card
+      const newCards = [...Me.slice(0, index), ...Me.slice(index + 1)];
+
+      // Update the state with the new array
+      setMe(newCards); 
+
+      var mockDeck = [...deck,card];
+
+
+      setDeck(mockDeck);
+
+      console.log(deck[0].value + " length")
+
+
+  }
+  useEffect(() => {
+    setDeck(playerTurns[count]);
+  }, [count, playerTurns]);
+  
 
   return (
     <>
@@ -127,27 +182,54 @@ export default function Home() {
       </Head>
       <main className={`${mainStyles.main}`}>
         <div className={styles.gameboard}>
-           
+
+<p>Deck</p>
+
 
 <div className={styles.playerGameBoard}>
 {/* // get number of players from local storage */}
 <div className={styles.gameboardHands}>
      <ul className={styles.playersHands}>
+
       {/* Player One -------------------------------*/}
         <li className={styles.player}>
         <div className={styles.playersCards}>
-        {<p>Player One : {MyPlayer.getName()}</p>}
-
+        {<p>{MyPlayer.getName()}</p>}
           <ul>
 {/* Players Cards */}
-
 {/* Loop over the arry of objects (uno array cards) */}
 {[...Me.values()].map((item, index) => (
           <li key={index}> 
             <img 
               src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
               alt="" 
-              className={styles.unoCard} 
+              className={styles.unoCard}  
+              onClick={() => {
+                
+                if(playersTurn === "Me"){
+                  setPlayerGo()
+                  placeCard(item);
+                  console.log(`Add ${item.colour}, ${item.value} to Pile`)
+                }else{
+                  switch(playersTurn){
+                    case "PlayerOne":
+                          // console.log("Player One's Turn")
+                          setPlayerGo()
+                    break;
+
+                    case "PlayerTwo":
+                          // console.log("Player One's Turn")
+                          setPlayerGo()
+                    break;
+
+                    default:
+                      console.log("Me")
+                      setPlayerGo()
+                  }
+                  // setPlayerGo()
+                }
+                
+              }}
             /> 
           </li>
         ))}
@@ -155,7 +237,6 @@ export default function Home() {
           </ul>
         </div>
         </li>
-
         {storedAmount >= 1 && (
         <li className={styles.playerTwo}>
         <div className={styles.playersCards}>
@@ -168,6 +249,9 @@ export default function Home() {
               src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
               alt="" 
               className={styles.unoCard} 
+
+            
+
             /> 
           </li>
         ))}
@@ -191,7 +275,7 @@ export default function Home() {
             /> 
           </li>
         ))}
-            <p>Player Three</p>
+            <p>Player Four</p>
                  </li>
           </ul>
         </div>
