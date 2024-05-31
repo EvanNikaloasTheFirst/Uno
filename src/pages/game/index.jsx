@@ -20,7 +20,7 @@ export default function Home() {
   const [count, setCount] = useState(0);
 
   const [deck, setDeck] = useState([]);
-
+  var mockDeck = [];
 
   var cardsDeck = Game.gameStart();
   var MyPlayer = new Player("Evangelos", Me);
@@ -137,9 +137,7 @@ useEffect(() => {
 
 
   const placeCard = (card) =>{
-
     var index = null;
-
     var card;
     // Looks for the card that has been selected & stores it in a variable
     for (let i = 0; i < Me.length; i++){
@@ -149,6 +147,8 @@ useEffect(() => {
         break;
       }
     }
+    if (index !== null && card !== null) {
+
       // Log the card placed down
       console.log("Card placed down " + card.value + " : " + card.colour);
 
@@ -156,21 +156,18 @@ useEffect(() => {
       const newCards = [...Me.slice(0, index), ...Me.slice(index + 1)];
 
       // Update the state with the new array
-      setMe(newCards); 
+      setMe(newCards); // updates (my) card array
 
-      var mockDeck = [...deck,card];
+      const newDeck = [...deck, card]; // get current array and adds the card just placed down into array
+      setDeck(newDeck);
 
+      mockDeck =
 
-      setDeck(mockDeck);
-
-      console.log(deck[0].value + " length")
-
+      console.log(newDeck[newDeck.length - 1].value +  newDeck[newDeck.length - 1].colour );
+    }
 
   }
-  useEffect(() => {
-    setDeck(playerTurns[count]);
-  }, [count, playerTurns]);
-  
+
 
   return (
     <>
@@ -184,6 +181,14 @@ useEffect(() => {
         <div className={styles.gameboard}>
 
 <p>Deck</p>
+
+{deck.length > 0 && (
+            <img
+              src={`/sprites/${deck[deck.length - 1].colour}/${deck[deck.length - 1].colour}-${deck[deck.length - 1].value}.png`}
+              alt=""
+              className={styles.unoCard}
+            />
+          )}
 
 
 <div className={styles.playerGameBoard}>
