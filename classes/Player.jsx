@@ -15,6 +15,10 @@ class Player{
     return this.name;
 }
 
+PlaceCard(item) {
+    console.log(`${item.colour} ${item.value}`);
+  }
+
  getAllCards(){
     return this.allCards;
 }
