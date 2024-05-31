@@ -1,4 +1,4 @@
-# Uno  🔴 🟡 🔵 🟢
+# Uno 🃏
 
 Uno built using NextJs (React), CSS and hosting it on Vercel! 🃏
 
