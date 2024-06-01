@@ -149,11 +149,9 @@ useEffect(() => {
 
   }
 
-
+// Allows the ai to place cards 
   const playAi = (arr,name) =>{
     var index = null;
-
-
     var cards = arr[0];
     // Looks for the card that has been selected & stores it in a variable
     for (let i = 0; i < arr.length; i++){
@@ -167,10 +165,8 @@ useEffect(() => {
 
       // Log the card placed down
       console.log("Card placed down " + cards.value + " : " + cards.colour);
-
       // Create a new array without the matching card
       const newCards = [...arr.slice(0, index), ...arr.slice(index + 1)];
-
       // Update the state with the new array
       // updates (my) card array
       switch(name){
@@ -199,6 +195,48 @@ useEffect(() => {
   }
 
 
+  const drawCard = (name) => {
+    var value = Math.floor(Math.random()* cardsDeck.length) + 1;
+
+    var cardToAdd = cardsDeck[value];
+
+    var newDeck = null;;
+
+    if(playersTurn == 'Me'){
+    switch(name){
+      case 'PlayerOne':
+         newDeck = [...PlayerOne, cardToAdd];
+        setPlayerOne(newDeck);
+        setPlayerGo()
+      break;
+
+      case 'PlayerTwo':
+        newDeck = [...PlayerTwo, cardToAdd];
+        setPlayerTwo(newDeck);
+        setPlayerGo()
+      break;
+
+      case 'PlayerThree':
+        newDeck = [...PlayerThree, cardToAdd];
+        setPlayerThree(newDeck);
+        setPlayerGo()
+      break;
+
+      case 'Me':
+        newDeck = [...Me, cardToAdd];
+        setMe(newDeck);
+        setPlayerGo()
+      break;
+        
+
+      default:
+        console.log("null")
+    }
+  }
+
+  }    
+
+
   return (
     <>
       <Head>
@@ -210,15 +248,28 @@ useEffect(() => {
       <main className={`${mainStyles.main}`}>
         <div className={styles.gameboard}>
 
+<div className={styles.decks}>
 <p>Deck</p>
-
-{deck.length > 0 && (
+{/* Displays the cards placed down */}
+            {deck.length > 0 && (
             <img
               src={`/sprites/${deck[deck.length - 1].colour}/${deck[deck.length - 1].colour}-${deck[deck.length - 1].value}.png`}
               alt=""
               className={styles.unoCard}
             />
           )}
+
+<p>Draw</p>
+            <img
+              src={"sprites/draw.png"}
+              alt=""
+              className={styles.unoCard}
+              onClick={() =>{
+                drawCard(playersTurn)
+              }}
+            />
+
+</div>
 
 
 <div className={styles.playerGameBoard}>
@@ -252,23 +303,22 @@ useEffect(() => {
                   }
                  
                 }else{
-                  console.log(playersTurn);
 
+                // This determines which AI is next to place a card
                   switch(playersTurn){
                     case "PlayerOne":
                       playAi(PlayerOne,"PlayerOne") 
-                          setPlayerGo()
+                      setPlayerGo()
                     break;
 
                     case "PlayerTwo":
                       playAi(PlayerTwo,"PlayerTwo") 
-                          setPlayerGo()
+                      setPlayerGo()
                     break;
 
                     case "PlayerThree":
                       playAi(PlayerThree,"PlayerThree") 
                       setPlayerGo()
-
                     break;
 
                     default:

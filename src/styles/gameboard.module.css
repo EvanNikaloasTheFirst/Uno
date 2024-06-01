@@ -12,6 +12,9 @@
     justify-content: center;
     top: 50px;
 }
+.drawCards{
+    width: 60px;
+}
 
 
 .playersHands{
