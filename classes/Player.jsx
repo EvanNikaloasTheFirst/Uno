@@ -7,17 +7,13 @@ class Player{
                 this.allCards=allCards;
         }
 
- getDeck(){
+ static getDeck(){
     return this.allCards;
 }
 
  getName(){
     return this.name;
 }
-
-PlaceCard(item) {
-    console.log(`${item.colour} ${item.value}`);
-  }
 
  getAllCards(){
     return this.allCards;

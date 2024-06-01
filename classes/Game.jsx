@@ -76,14 +76,18 @@ return arrayOfCards;
     }
     
 
-    static isCardSelectedValid(cardOnDeck,cardToBePlaced){
+    static isCardSelectedValid(cardOnDeck,cardToBePlaced,deck){
         var valid = false;
-        if(cardOnDeck.colour === cardToBePlaced.colour){
-            valid = true;
-        }
+        if (deck.length === 0) return true;
 
-        if (cardOnDeck.value === cardToBePlaced.value){
+        if(cardToBePlaced.colour === deck[deck.length - 1].colour){
             valid = true;
+            console.log("Colours match")
+        }
+        
+        if (cardToBePlaced.colour  === deck[deck.length - 1].colour){
+            valid = true;
+            console.log("Values match")
         }
         return valid;
     }

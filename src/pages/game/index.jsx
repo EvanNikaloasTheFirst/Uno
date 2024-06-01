@@ -18,10 +18,8 @@ export default function Home() {
   const [allPlayers, setAllPlayers] = useState([]);
   const [playersTurn, setPlayerTurn] = useState(null);
   const [count, setCount] = useState(0);
-
   const [deck, setDeck] = useState([]);
   var mockDeck = [];
-
   var cardsDeck = Game.gameStart();
   var MyPlayer = new Player("Evangelos", Me);
 
@@ -79,7 +77,6 @@ export default function Home() {
 
   useEffect(() => {
     // console.log("Lobby size: " + lobby.length)
-
     if (storedAmount !== null) {
       // Ai bots
       var ai1 =  new Player("Jerry", PlayerOne);
@@ -115,12 +112,6 @@ export default function Home() {
 
   var playerTurns =  ["Me","PlayerOne","PlayerTwo"];
 
-  // Make AI place a card
-
-  const aiPlays = () => {
-    console.log(  "Played")
-  }
-
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
         const newCount = prevCount + 1;
@@ -132,9 +123,6 @@ export default function Home() {
 useEffect(() => {
   setPlayerTurn(playerTurns[count]);
 }, [count, playerTurns]);
-
-
-
 
   const placeCard = (card) =>{
     var index = null;
@@ -160,8 +148,6 @@ useEffect(() => {
 
       const newDeck = [...deck, card]; // get current array and adds the card just placed down into array
       setDeck(newDeck);
-
-      mockDeck =
 
       console.log(newDeck[newDeck.length - 1].value +  newDeck[newDeck.length - 1].colour );
     }
@@ -212,9 +198,17 @@ useEffect(() => {
               onClick={() => {
                 
                 if(playersTurn === "Me"){
-                  setPlayerGo()
+                  if(Game.isCardSelectedValid(deck[deck.length-1],item,deck)){
+                     setPlayerGo()
                   placeCard(item);
+                  
                   console.log(`Add ${item.colour}, ${item.value} to Pile`)
+                  }
+                  else{
+                    alert("Cant place that card")
+                    console.log("Noooo")
+                  }
+                 
                 }else{
                   switch(playersTurn){
                     case "PlayerOne":
