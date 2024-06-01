@@ -26,9 +26,6 @@ export default function Home() {
 
   const [storedAmount, setStoredAmount] = useState(null); // set state 
 
- 
-  
-
   const retrieveAmount = () => {
     try {
       var amt = parseInt(localStorage.getItem("amountOfPlayer"));
@@ -76,7 +73,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // console.log("Lobby size: " + lobby.length)
     if (storedAmount !== null) {
       // Ai bots
       var ai1 =  new Player("Jerry", PlayerOne);
@@ -149,7 +145,55 @@ useEffect(() => {
       const newDeck = [...deck, card]; // get current array and adds the card just placed down into array
       setDeck(newDeck);
 
-      console.log(newDeck[newDeck.length - 1].value +  newDeck[newDeck.length - 1].colour );
+    }
+
+  }
+
+
+  const playAi = (arr,name) =>{
+    var index = null;
+
+
+    var cards = arr[0];
+    // Looks for the card that has been selected & stores it in a variable
+    for (let i = 0; i < arr.length; i++){
+      if (cards.value == arr[i].value && cards.colour === arr[i].colour){
+        index = i;
+        cards = arr[i];
+        break;
+      }
+    }
+    if (index !== null && cards !== null) {
+
+      // Log the card placed down
+      console.log("Card placed down " + cards.value + " : " + cards.colour);
+
+      // Create a new array without the matching card
+      const newCards = [...arr.slice(0, index), ...arr.slice(index + 1)];
+
+      // Update the state with the new array
+      // updates (my) card array
+      switch(name){
+        case 'PlayerOne':
+          setPlayerOne(newCards);
+        break;
+
+        case 'PlayerTwo':
+          setPlayerTwo(newCards);
+        break;
+
+        case 'PlayerThree':
+          setPlayerThree(newCards);
+        break;
+
+        default:
+          console.log("null")
+      }
+
+      const newDeck = [...deck, cards]; // get current array and adds the card just placed down into array
+      setDeck(newDeck);
+
+      console.log("Ai played: " +newDeck[newDeck.length - 1].value +  newDeck[newDeck.length - 1].colour );
     }
 
   }
@@ -202,30 +246,35 @@ useEffect(() => {
                      setPlayerGo()
                   placeCard(item);
                   
-                  console.log(`Add ${item.colour}, ${item.value} to Pile`)
                   }
                   else{
                     alert("Cant place that card")
-                    console.log("Noooo")
                   }
                  
                 }else{
+                  console.log(playersTurn);
+
                   switch(playersTurn){
                     case "PlayerOne":
-                          // console.log("Player One's Turn")
+                      playAi(PlayerOne,"PlayerOne") 
                           setPlayerGo()
                     break;
 
                     case "PlayerTwo":
-                          // console.log("Player One's Turn")
+                      playAi(PlayerTwo,"PlayerTwo") 
                           setPlayerGo()
+                    break;
+
+                    case "PlayerThree":
+                      playAi(PlayerThree,"PlayerThree") 
+                      setPlayerGo()
+
                     break;
 
                     default:
                       console.log("Me")
                       setPlayerGo()
                   }
-                  // setPlayerGo()
                 }
                 
               }}
@@ -265,7 +314,7 @@ useEffect(() => {
       
           <ul>
             <li>       
-            {[...PlayerThree.values()].map((item, index) => (
+            {[...PlayerTwo.values()].map((item, index) => (
           <li key={index}> 
             <img 
               src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
