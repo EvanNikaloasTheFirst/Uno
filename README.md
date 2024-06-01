@@ -21,3 +21,19 @@ After then you have an option of restarting the game of quitting out.
 ## Here's how it looks  🎥
 -------------
 **Build currently in progress! 🚧**
+
+## Functionality 
+Check Points
+- [x] Break Down Game into classes (Game, Card, Player) ✅
+- [x] Select Amount of players to play ✅
+- [x] Allow all users including (AI full capabilties of playing) ✅ 
+- [ ] Automate the AI turns (So User doesn't need to click to move onto the next go) 🛠️
+- [ ] Implement framer motion for nicer looking UI
+- [ ] Implment the rules for placing down the cards 🛠️
+- [ ] Implement Easy, Medium and Hard Levels
+- [ ] Implement Settings for customization
+
+## Testing 
+- [ ] Complete Unit Testing
+- [ ] Complete User Testing
+- [ ] Complete Integration testing
