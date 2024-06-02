@@ -51,7 +51,6 @@ return arrayOfCards;
 }
 
     static generateRandomNumber(){
-
         switch (colour){
             // To determine how to select the correct sprite
                         case 'green':
@@ -76,16 +75,16 @@ return arrayOfCards;
     }
     
 
-    static isCardSelectedValid(cardOnDeck,cardToBePlaced,deck){
+    static isCardSelectedValid(deck,cardToBePlaced){
         var valid = false;
-        if (deck.length === 0) return true;
+        if (deck.length == 0) return true;
 
         if(cardToBePlaced.colour === deck[deck.length - 1].colour){
             valid = true;
             console.log("Colours match")
         }
-        
-        if (cardToBePlaced.colour  === deck[deck.length - 1].colour){
+
+        if (cardToBePlaced.value  == deck[deck.length - 1].value){
             valid = true;
             console.log("Values match")
         }
@@ -98,8 +97,7 @@ return arrayOfCards;
         var playerDeck = [];
         for(let i = 0; i < 7; i++){
             var randomIndex = Math.floor(Math.random()* mockDeck.length);
-            // let randomCard = mockDeck.splice(randomIndex,1)[0];
-
+ 
             playerDeck.push(mockDeck[randomIndex]);
 
             // remove card from the card deck
@@ -118,7 +116,50 @@ return arrayOfCards;
     }
 }
 
+static selectCard(arr,deck){
+    //  Looks for the best card to place on deck
+        var card = Game.findBestCard(arr,deck);
+
+      
+            return card;
+    
+        // }
+      
+    
+    }
+    
+    static findBestCard(arr,deck){
+    //  Looks for matching value & colour
+        for (let i = 0; i < arr.length; i++){
+            if (arr[i].value == deck[deck.length - 1].value && arr[i].colour == deck[deck.length - 1].colour){
+                    return arr[i];
+            }
+        }
+    
+        //  Looks for matching value
+
+            for (let i = 0; i < arr.length; i++){
+                if (arr[i].value == deck[deck.length - 1].value){
+                        return arr[i];
+                }
+            }
+          
+
+    
+        // looks for matching colour
+
+            for (let i = 0; i < arr.length; i++){
+                if (arr[i].colour === deck[deck.length - 1].colour){
+                        return arr[i];;
+                } 
+            }
+        
+    
+    return null; //draw card if its null
+    }
+
 }
+
 
 
 Game.propTypes = { 

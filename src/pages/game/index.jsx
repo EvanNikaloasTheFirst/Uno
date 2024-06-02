@@ -19,7 +19,6 @@ export default function Home() {
   const [playersTurn, setPlayerTurn] = useState(null);
   const [count, setCount] = useState(0);
   const [deck, setDeck] = useState([]);
-  var mockDeck = [];
   var cardsDeck = Game.gameStart();
   var MyPlayer = new Player("Evangelos", Me);
 
@@ -106,12 +105,12 @@ export default function Home() {
     }
   }, [storedAmount]);
 
-  var playerTurns =  ["Me","PlayerOne","PlayerTwo"];
+  var playerTurns =  ["Me","PlayerOne","PlayerTwo","PlayerThree"];
 
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
         const newCount = prevCount + 1;
-        console.log(playersTurn + " < Turn " + newCount);
+        console.log(playerTurns[newCount] + " < Go " + newCount);
         return newCount > 2 ? 0 : newCount;
     });
 }, [playersTurn]);
@@ -122,10 +121,9 @@ useEffect(() => {
 
   const placeCard = (card) =>{
     var index = null;
-    var card;
     // Looks for the card that has been selected & stores it in a variable
     for (let i = 0; i < Me.length; i++){
-      if (card.value == Me[i].value && card.colour === Me[i].colour){
+      if (card.value == Me[i].value || card.colour === Me[i].colour){
         index = i;
         card = Me[i];
         break;
@@ -150,21 +148,34 @@ useEffect(() => {
   }
 
 // Allows the ai to place cards 
-  const playAi = (arr,name) =>{
+  const playAi = (arr,name,deck) =>{
     var index = null;
-    var cards = arr[0];
-    // Looks for the card that has been selected & stores it in a variable
-    for (let i = 0; i < arr.length; i++){
-      if (cards.value == arr[i].value && cards.colour === arr[i].colour){
+
+    //  Looks for the best card to place on deck
+    var card = Game.selectCard(arr,cardsDeck);
+
+    for(let i = 0; i < arr.length; i++){
+      // alert(arr.length + " leng")
+      if(arr[i].colour === deck[deck.length - 1].colour && arr[i].value === deck[deck.length - 1].value ){
         index = i;
-        cards = arr[i];
+        alert(playersTurn + " : " +index + arr[i].colour + arr[i].value)
+        break;
+      }else if (arr[i].colour === deck[deck.length - 1].colour ){
+        index = i;
+        alert(playersTurn + " : " +index + arr[i].colour + arr[i].value)
+        break;
+      }else if(arr[i].value === deck[deck.length - 1].value ){
+        index = i;
+        alert(playersTurn + " : " +index + arr[i].colour + arr[i].value)
         break;
       }
     }
-    if (index !== null && cards !== null) {
 
+    try{
+    if (card != null && card.value == deck[deck.length - 1].value || card != null && 
+      card.colour === deck[deck.length - 1].colour) {
       // Log the card placed down
-      console.log("Card placed down " + cards.value + " : " + cards.colour);
+      console.log(playersTurn + "...Card placed down " + card.value + " : " + card.colour);
       // Create a new array without the matching card
       const newCards = [...arr.slice(0, index), ...arr.slice(index + 1)];
       // Update the state with the new array
@@ -186,14 +197,18 @@ useEffect(() => {
           console.log("null")
       }
 
-      const newDeck = [...deck, cards]; // get current array and adds the card just placed down into array
+      const newDeck = [...deck, card];
+       // get current array and adds the card just placed down into array
       setDeck(newDeck);
 
       console.log("Ai played: " +newDeck[newDeck.length - 1].value +  newDeck[newDeck.length - 1].colour );
     }
 
+  }catch(e){
+    drawCard(playersTurn)
   }
 
+  }
 
   const drawCard = (name) => {
     var value = Math.floor(Math.random()* cardsDeck.length) + 1;
@@ -202,9 +217,10 @@ useEffect(() => {
 
     var newDeck = null;;
 
-    if(playersTurn == 'Me'){
+    if(playersTurn === name ){
     switch(name){
       case 'PlayerOne':
+        // const newCards = [...Me.slice(0, index), ...Me.slice(index + 1)];
          newDeck = [...PlayerOne, cardToAdd];
         setPlayerOne(newDeck);
         setPlayerGo()
@@ -293,8 +309,8 @@ useEffect(() => {
               onClick={() => {
                 
                 if(playersTurn === "Me"){
-                  if(Game.isCardSelectedValid(deck[deck.length-1],item,deck)){
-                     setPlayerGo()
+                  if(Game.isCardSelectedValid(deck,item)){
+                  setPlayerGo()
                   placeCard(item);
                   
                   }
@@ -307,23 +323,23 @@ useEffect(() => {
                 // This determines which AI is next to place a card
                   switch(playersTurn){
                     case "PlayerOne":
-                      playAi(PlayerOne,"PlayerOne") 
+                      playAi(PlayerOne,"PlayerOne",deck) 
                       setPlayerGo()
                     break;
 
                     case "PlayerTwo":
-                      playAi(PlayerTwo,"PlayerTwo") 
+                      playAi(PlayerTwo,"PlayerTwo",deck) 
                       setPlayerGo()
                     break;
 
                     case "PlayerThree":
-                      playAi(PlayerThree,"PlayerThree") 
+                      playAi(PlayerThree,"PlayerThree",deck) 
                       setPlayerGo()
                     break;
 
                     default:
                       console.log("Me")
-                      setPlayerGo()
+                      
                   }
                 }
                 
@@ -338,7 +354,7 @@ useEffect(() => {
         {storedAmount >= 1 && (
         <li className={styles.playerTwo}>
         <div className={styles.playersCards}>
-          <p>Player Two</p>
+          <p>Player One</p>
           <ul>
             <li>       
             {[...PlayerOne.values()].map((item, index) => (
@@ -373,7 +389,7 @@ useEffect(() => {
             /> 
           </li>
         ))}
-            <p>Player Four</p>
+            <p>Player Two</p>
                  </li>
           </ul>
         </div>
