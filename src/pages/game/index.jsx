@@ -18,8 +18,12 @@ export default function Home() {
   const [allPlayers, setAllPlayers] = useState([]);
   const [playersTurn, setPlayerTurn] = useState(null);
   const [count, setCount] = useState(0);
-  const [deck, setDeck] = useState([]);
+  const [whosTurn, setwhosTurn] = useState(null);
   var cardsDeck = Game.gameStart();
+  const [deck, setDeck] = useState([cardsDeck[0]]);
+
+  var [playerNames,setPlayerNames] = useState([]);
+
   var MyPlayer = new Player("Evangelos", Me);
 
 
@@ -31,16 +35,19 @@ export default function Home() {
       setStoredAmount(localStorage.getItem("amountOfPlayer"));
 
       const tempLobby = [];
+      var tempNames = [];
       switch(amt){
         case 1:
           tempLobby.push(Me);
           tempLobby.push(PlayerOne);
+          tempNames.push("Me","PlayerOne")
           break;  
         
         case 2:
           tempLobby.push(Me);
           tempLobby.push(PlayerOne);
           tempLobby.push(PlayerTwo);
+          tempNames.push("Me","PlayerOne","PlayerTwo")
           break;  
 
         case 3:
@@ -48,10 +55,12 @@ export default function Home() {
           tempLobby.push(PlayerOne);
           tempLobby.push(PlayerTwo);
           tempLobby.push(PlayerThree);
+          tempNames.push("Me","PlayerOne","PlayerTwo","PlayerThree")
           break;  
 
       }
       setLobby(tempLobby)
+      setPlayerNames(tempNames);
 
     } catch (e) {
       console.error('Failed to retrieve amount from localStorage', e);
@@ -105,13 +114,22 @@ export default function Home() {
     }
   }, [storedAmount]);
 
-  var playerTurns =  ["Me","PlayerOne","PlayerTwo","PlayerThree"];
+  var playerTurns =  playerNames;
 
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
-        const newCount = prevCount + 1;
-        console.log(playerTurns[newCount] + " < Go " + newCount);
-        return newCount > 2 ? 0 : newCount;
+
+      let newCount = prevCount + 1;
+      if (prevCount === 2) {
+        newCount = 0;
+      }
+     
+try{
+  console.log(`/sprites/${item.
+    colour}/${item.colour}-${item.value}.png`);
+}catch(e){}
+        
+        return newCount;
     });
 }, [playersTurn]);
 
@@ -119,7 +137,13 @@ useEffect(() => {
   setPlayerTurn(playerTurns[count]);
 }, [count, playerTurns]);
 
+useEffect(() => {
+  setwhosTurn(playersTurn);
+}, [count, whosTurn]);
+
   const placeCard = (card) =>{
+    
+
     var index = null;
     // Looks for the card that has been selected & stores it in a variable
     for (let i = 0; i < Me.length; i++){
@@ -130,7 +154,6 @@ useEffect(() => {
       }
     }
     if (index !== null && card !== null) {
-
       // Log the card placed down
       console.log("Card placed down " + card.value + " : " + card.colour);
 
@@ -142,7 +165,6 @@ useEffect(() => {
 
       const newDeck = [...deck, card]; // get current array and adds the card just placed down into array
       setDeck(newDeck);
-
     }
 
   }
@@ -155,18 +177,18 @@ useEffect(() => {
     var card = Game.selectCard(arr,cardsDeck);
 
     for(let i = 0; i < arr.length; i++){
-      // alert(arr.length + " leng")
+
       if(arr[i].colour === deck[deck.length - 1].colour && arr[i].value === deck[deck.length - 1].value ){
         index = i;
-        alert(playersTurn + " : " +index + arr[i].colour + arr[i].value)
+
         break;
       }else if (arr[i].colour === deck[deck.length - 1].colour ){
         index = i;
-        alert(playersTurn + " : " +index + arr[i].colour + arr[i].value)
+
         break;
       }else if(arr[i].value === deck[deck.length - 1].value ){
         index = i;
-        alert(playersTurn + " : " +index + arr[i].colour + arr[i].value)
+
         break;
       }
     }
@@ -183,14 +205,20 @@ useEffect(() => {
       switch(name){
         case 'PlayerOne':
           setPlayerOne(newCards);
+          console.log(PlayerOne.length + " Player One len")
+
         break;
 
         case 'PlayerTwo':
           setPlayerTwo(newCards);
+          console.log(PlayerTwo.length + " Player 2 len")
+
         break;
 
         case 'PlayerThree':
           setPlayerThree(newCards);
+          console.log(PlayerThree.length + " Player 3 len")
+
         break;
 
         default:
@@ -202,13 +230,41 @@ useEffect(() => {
       setDeck(newDeck);
 
       console.log("Ai played: " +newDeck[newDeck.length - 1].value +  newDeck[newDeck.length - 1].colour );
-    }
+    }else{
+    drawCard(playersTurn)
+    console.log(playersTurn + " is drawing a card");
+  }
 
   }catch(e){
     drawCard(playersTurn)
+    console.log(playersTurn + " is drawing a card");
   }
 
+  // checkIfWon()
   }
+
+  const contains = (name,arr) => {
+    for (let i = 0; i < arr.length; i++){
+      if(arr[i] === name){
+        alert("true")
+        return true
+      } 
+    }
+    return false
+  }
+
+  const checkIfWon = () =>{
+// alert("DDDd")
+    if(PlayerOne.length == 0 ){
+        alert("Winner PlayerOne")
+    } else if(PlayerTwo.length == 0 ){
+      alert("Winner PlayerTwo")
+    } else if(PlayerThree.length == 0 ){
+        alert("Winner playerThree")
+    }else if(Me.length-1 == 0 ){
+      alert("Winner me")
+  }
+}
 
   const drawCard = (name) => {
     var value = Math.floor(Math.random()* cardsDeck.length) + 1;
@@ -217,11 +273,10 @@ useEffect(() => {
 
     var newDeck = null;;
 
-    if(playersTurn === name ){
+    if(playersTurn === name){
     switch(name){
       case 'PlayerOne':
-        // const newCards = [...Me.slice(0, index), ...Me.slice(index + 1)];
-         newDeck = [...PlayerOne, cardToAdd];
+        newDeck = [...PlayerOne, cardToAdd];
         setPlayerOne(newDeck);
         setPlayerGo()
       break;
@@ -255,26 +310,47 @@ useEffect(() => {
 
   return (
     <>
-      <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="Generated by create next app" />
+     <Head>
+        <title>Uno by Evangelos</title>
+        <meta name="description" content="Uno by Evangelos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/uno_logo.png" />
       </Head>
       <main className={`${mainStyles.main}`}>
         <div className={styles.gameboard}>
 
-<div className={styles.decks}>
-<p>Deck</p>
+{Me.length == 0 &&(
+        <div className={styles.playAgain}>
+  <p>WINNER</p>
+        <ul>
+      
+        <li> <a href='http://localhost:3001/game'><button>Play Again?</button></a></li>
+        <li> <a href='http://localhost:3001'><button>home</button></a></li>
+        </ul> 
+    </div>
+    
+     
+      )}
+
 {/* Displays the cards placed down */}
-            {deck.length > 0 && (
+<div className={styles.decks}>
+            <ul>
+
+
+
+              <li>
+              <p>Deck</p>
+              {deck.length != 0 &&( 
+               
             <img
               src={`/sprites/${deck[deck.length - 1].colour}/${deck[deck.length - 1].colour}-${deck[deck.length - 1].value}.png`}
               alt=""
               className={styles.unoCard}
             />
           )}
+              </li>
 
+              <li>
 <p>Draw</p>
             <img
               src={"sprites/draw.png"}
@@ -282,8 +358,15 @@ useEffect(() => {
               className={styles.unoCard}
               onClick={() =>{
                 drawCard(playersTurn)
+                console.log(playersTurn + " is drawing a card");
               }}
             />
+
+              </li>
+            </ul>
+            <p>{playersTurn ? `${playersTurn}+    's Turn` : 'No player turn set'}</p>
+
+
 
 </div>
 
@@ -296,7 +379,18 @@ useEffect(() => {
       {/* Player One -------------------------------*/}
         <li className={styles.player}>
         <div className={styles.playersCards}>
-        {<p>{MyPlayer.getName()}</p>}
+
+        <div>
+      {playerTurns === 'Me' ? (
+        <div className={styles.yourTurn}>
+          <p>{MyPlayer.getName() + " " + Me.length} </p>
+        </div>
+      ) : (
+        <p>{MyPlayer.getName() + " " + Me.length} </p>
+      )}
+    </div>
+        <div className={styles.PlayercardBox}>
+       
           <ul>
 {/* Players Cards */}
 {/* Loop over the arry of objects (uno array cards) */}
@@ -308,36 +402,42 @@ useEffect(() => {
               className={styles.unoCard}  
               onClick={() => {
                 
+
                 if(playersTurn === "Me"){
                   if(Game.isCardSelectedValid(deck,item)){
                   setPlayerGo()
                   placeCard(item);
-                  
+                  console.log(Me.length + " My array")
+                  // checkIfWon()
                   }
+                  
+
                   else{
                     alert("Cant place that card")
                   }
-                 
-                }else{
-
+                  
+                }
+                
+                else{
+                  // checkIfWon()
                 // This determines which AI is next to place a card
                   switch(playersTurn){
-                    case "PlayerOne":
+                    case 'PlayerOne':
                       playAi(PlayerOne,"PlayerOne",deck) 
                       setPlayerGo()
                     break;
-
-                    case "PlayerTwo":
+                    case 'PlayerTwo':
                       playAi(PlayerTwo,"PlayerTwo",deck) 
                       setPlayerGo()
                     break;
 
-                    case "PlayerThree":
+                    case 'PlayerThree':
                       playAi(PlayerThree,"PlayerThree",deck) 
                       setPlayerGo()
                     break;
 
                     default:
+                      // checkIfWon()
                       console.log("Me")
                       
                   }
@@ -349,12 +449,23 @@ useEffect(() => {
         ))}
 
           </ul>
+          </div>
         </div>
         </li>
         {storedAmount >= 1 && (
         <li className={styles.playerTwo}>
         <div className={styles.playersCards}>
-          <p>Player One</p>
+          <p>Player One {PlayerOne.length}</p>
+          {PlayerOne.length == 0 &&(
+          <div>
+            <p>WINNER</p>
+            <ul>
+            <li> <button>Play Again?</button></li>
+            <li><button>Back to home</button></li>
+            </ul> 
+            </div>
+      )}
+          <div className={styles.cardBox}>
           <ul>
             <li>       
             {[...PlayerOne.values()].map((item, index) => (
@@ -371,13 +482,36 @@ useEffect(() => {
         ))}
                  </li>
           </ul>
+          </div>
         </div>
 </li>)}
 
 {storedAmount >= 2 && (
         <li className={styles.playerThree}>
+           <div>
+      {playerTurns === 'PlayerTwo' ? (
+        <div className={styles.yourTurn}>
+          <p>Player Two {PlayerTwo.length}</p>
+        </div>
+      ) : (
+        <p>Player Two {PlayerTwo.length}</p>
+      )}
+
+{PlayerTwo.length == 0 &&(
+         <div>
+         <p>WINNER</p>
+         <ul>
+             <li><button onclick="location.reload()'">Play Again?</button></li>
+             <li><button onclick="location.reload()">Back to home</button></li>
+         </ul> 
+     </div>
+     
+      )}
+    </div>
         <div className={styles.playersCards}>
-      
+
+        <div className={styles.cardBox}>
+       
           <ul>
             <li>       
             {[...PlayerTwo.values()].map((item, index) => (
@@ -389,17 +523,40 @@ useEffect(() => {
             /> 
           </li>
         ))}
-            <p>Player Two</p>
+           
                  </li>
           </ul>
+      
+          </div>
         </div>
 </li>)}
 
 {storedAmount >= 3 && (
         <li className={styles.playerFour}>
         <div className={styles.playersCards}>
-          <p>Player Three</p>
+        <div>
+      {playerTurns === 'PlayerThree' ? (
+        <div className={styles.yourTurn}>
+          <p>Player Three {PlayerThree.length}</p>
+        </div>
+      ) : (
+        <p>Player Three {PlayerThree.length}</p>
+      )}
+    </div>
+          <div className={styles.cardBox}>
+          {PlayerThree.length == 0 &&(
+        <div>
+        <p>WINNER</p>
+        <ul>
+            <li><button onclick="location.reload()'">Play Again?</button></li>
+            <li><button onclick="location.reload()">Back to home</button></li>
+        </ul> 
+    </div>
+    
+     
+      )}
           <ul>
+            
             <li>       
             {[...PlayerThree.values()].map((item, index) => (
           <li key={index}> 
@@ -412,6 +569,7 @@ useEffect(() => {
         ))}
                  </li>
           </ul>
+          </div>
         </div>
 </li>)} 
             </ul>

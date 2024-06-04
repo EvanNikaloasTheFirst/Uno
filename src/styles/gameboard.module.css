@@ -40,21 +40,23 @@
     right: 200px;
 }
 
-.playerTwo p {
-    position: relative;
-    top: 150px;    
-}
+
 /* ---Player Two cards */
 .playerTwo{
     position: absolute;
     left: 0;
     margin-left: 30px;
-    top: 100px;
-    transform: rotate(90deg);
+    top: 140px;
+    /* transform: rotate(90deg); */
 }
 .playerTwo ul{
+    display: flex;
+    flex-direction: column;
     position: relative;
-    transform: rotate(90deg);
+    overflow: auto;
+    top: 10px;
+    left: 35px;
+    /* transform: rotate(90deg); */
 }
 
 /* Rotates each individual card to face head on */
@@ -65,21 +67,20 @@
 
 
 /* ----------- */
-.playerThree p {
-    position: relative;
-    transform: rotate(90deg);
-    bottom: 300px;
-    left: 50px;
-}
+
 .playerThree{
     position: absolute;
     right: 10px;
-    transform: rotate(90deg);
+    bottom: 200px;
+    /* transform: rotate(90deg); */
 }
-.playerThree .playersCards ul{
+.playerThree ul{
+    display: flex;
+    flex-direction: column;
     position: relative;
-    top: 50px;
-    transform: rotate(90deg);
+    left: 35px;
+    overflow: auto;
+    /* transform: rotate(90deg); */
 }
 .playerThree ul li img{
     position: relative;
@@ -93,12 +94,13 @@
     }
 .playerFour{
     position: relative;
-    bottom: 250px;
+    bottom: 450px;
     transform: rotate(180deg);
 }
 .playerFour .playersCards ul{
     position: relative;
     transform: rotate(90deg);
+    overflow: auto;
 }
 
 .playerFour ul li img{
@@ -110,6 +112,55 @@
 /* Styling the cardds and players deck */
 .unoCard{
     width: 50px;
+}
+
+.decks{
+    position: relative;
+    top: 100px;
+}
+
+.decks ul{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+.decks ul li{
+    margin-right: 25px;
+
+
+}
+.PlayercardBox{
+    border: 2px solid rgba(255, 255, 255, 0.281);
+    border-radius: 10px;
+    height: 100px;
+    width: 500px;
+    overflow: auto;
+    display: inline-block; /* Ensure it only takes up as much space as needed */
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.cardBox {
+    border: 2px solid rgba(255, 255, 255, 0.281);
+    border-radius: 10px;
+    height: 500px;
+    width: 150px;
+    overflow: auto;
+    display: inline-block; /* Ensure it only takes up as much space as needed */
+  }
+  
+  .cardBox ul {
+    /* transform: rotate(-90deg); */
+    list-style-type: none; /* Remove default list styles */
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+  }
+
+
+
+.playersCards{
+    width: fit-content;
 }
 @media (max-width: 600px) {
     .unoCard {
@@ -134,3 +185,60 @@
     position: relative;
    bottom: 10px;
 }
+
+
+
+   @keyframes selected {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+    50% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .selected {
+    animation: selected 0.5s ease-in-out infinite; /* Adjust the duration and easing as needed */
+  }
+  
+
+  .playAgain {
+    background-color: pink;
+    position: absolute;
+    z-index: 999;
+    width: 350px;
+    height: 300px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+  .playAgain p {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 50px;
+  }
+
+  .playAgain ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .playAgain ul li{
+   margin-right: 20px;
+  }
+
+  .playAgain button{
+    width: 125px;
+    height: 75px;
+    padding: 20px;
+    
+  }

@@ -10,10 +10,10 @@ class Game{
         var cardsDeck = [];
         // appends the array of each card into the deck
         cardsDeck.push(...this.generateCards("green"));
-        cardsDeck.push(...this.generateCards("blue"));
-        cardsDeck.push(...this.generateCards("yellow"));
-        cardsDeck.push(...this.generateCards("red"));
-        cardsDeck.push(...this.generateCards("blue"));
+        // cardsDeck.push(...this.generateCards("blue"));
+        // cardsDeck.push(...this.generateCards("yellow"));
+        // cardsDeck.push(...this.generateCards("red"));
+        // cardsDeck.push(...this.generateCards("blue"));
         return cardsDeck;
     }
 
@@ -119,10 +119,7 @@ return arrayOfCards;
 static selectCard(arr,deck){
     //  Looks for the best card to place on deck
         var card = Game.findBestCard(arr,deck);
-
-      
-            return card;
-    
+        return card;
         // }
       
     
@@ -130,32 +127,43 @@ static selectCard(arr,deck){
     
     static findBestCard(arr,deck){
     //  Looks for matching value & colour
+    for (let i = 0; i < arr.length; i++){
+        console.log(arr[i].colour)
+    }
+    
+    
+
+    var card = null;
         for (let i = 0; i < arr.length; i++){
-            if (arr[i].value == deck[deck.length - 1].value && arr[i].colour == deck[deck.length - 1].colour){
-                    return arr[i];
+            if (arr[i].value === deck[deck.length - 1].value && arr[i].colour === deck[deck.length - 1].colour){
+               return arr[i];
             }
         }
-    
-        //  Looks for matching value
-
+    // looks for matching colour
             for (let i = 0; i < arr.length; i++){
-                if (arr[i].value == deck[deck.length - 1].value){
-                        return arr[i];
+                if (arr[i].colour === deck[deck.length - 1].colour){
+                    
+                    card= arr[i];;
+                } 
+            }
+        
+        //  Looks for matching value
+            for (let i = 0; i < arr.length; i++){
+                if (arr[i].value === deck[deck.length - 1].value){
+
+                    card= arr[i];;
                 }
             }
           
 
-    
-        // looks for matching colour
+    try{
+        alert(card[i].colour + " : " + card[i].value)
+    }catch(e){
 
-            for (let i = 0; i < arr.length; i++){
-                if (arr[i].colour === deck[deck.length - 1].colour){
-                        return arr[i];;
-                } 
-            }
-        
+    }
+            
     
-    return null; //draw card if its null
+    return card; //draw card if its null
     }
 
 }
