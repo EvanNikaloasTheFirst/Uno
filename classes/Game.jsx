@@ -16,6 +16,12 @@ class Game{
         return cardsDeck;
     }
 
+    static generateRandomCard(cardsDeck){
+        var value = Math.floor(Math.random()* cardsDeck.length) + 1;
+
+        return cardsDeck[value]
+    }
+
     
 static generateCards(colour){ 
     var arrayOfCards = [];
@@ -76,13 +82,17 @@ return arrayOfCards;
 
     static isCardSelectedValid(deck,cardToBePlaced){
 
+
+        if (deck.length == 0) return true;
+
         if(cardToBePlaced.value === deck[deck.length - 1].value || cardToBePlaced.colour === 
         deck[deck.length-1].colour){
             console.log("yaya")
             return true;
         }else{
-            
+            console.log(deck.length)
 console.log(cardToBePlaced.value + " My card " + cardToBePlaced.colour)
+
             for(let i =0; i < deck.length; i ++){
                 console.log(deck[i].value + " In deck " + deck[i].colour )
             }

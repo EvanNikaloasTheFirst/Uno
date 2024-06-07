@@ -73,7 +73,7 @@
 
 .playerThree{
     position: absolute;
-    right: 10px;
+    right: 40px;
     bottom: 200px;
     /* transform: rotate(90deg); */
 }
@@ -83,35 +83,44 @@
     position: relative;
     left: 35px;
     overflow: auto;
-    /* transform: rotate(90deg); */
 }
 .playerThree ul li img{
     position: relative;
     transform: rotate(90deg);
 }
 
-    /* -------- */
-.playerFour p {
-        position: relative;
-        top: 150px;
-    }
-.playerFour{
-    position: relative;
-    bottom: 450px;
-    transform: rotate(180deg);
+
+.playerfours{
+
+        position: absolute;
+        bottom: 500px;
+        height:525px;
+        width: 125px;
+        overflow-x: auto;
+        transform: rotate(90deg);
+        border: 2px solid rgba(255, 255, 255, 0.281);
+        border-radius: 10px;
+        justify-content: center;
+        font-family: "Unica One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
 }
-.playerFour .playersCards ul{
+.playerfours p{
+    transform: rotate(270deg);
+    position: relative;
+
+}
+
+.playerfours ul{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 25px;
+}
+.playerfours ul li img{
     position: relative;
     transform: rotate(90deg);
-    overflow: auto;
 }
-
-.playerFour ul li img{
-    position: relative;
-    transform: rotate(90deg);
-}
-
-
 /* Styling the cardds and players deck */
 .unoCard{
     width: 50px;
@@ -119,7 +128,12 @@
 
 .decks{
     position: relative;
-    top: 100px;
+    top: 200px;
+    border: 3px solid red;
+    border-radius: 10px;
+    padding: 10px;
+    color: #FFF;
+    font-family: "Unica One", sans-serif;
 }
 
 .decks ul{
@@ -137,7 +151,8 @@
     border-radius: 10px;
     height: 100px;
     width: 500px;
-    overflow: auto;
+    overflow-y: hidden; /* Display vertical scrollbar when content overflows */
+    overflow-x: scroll; 
     display: inline-block; /* Ensure it only takes up as much space as needed */
     justify-content: center;
     margin: 0 auto;
@@ -162,23 +177,23 @@
     border-radius: 10px;
     height: 500px;
     width: 150px;
-    overflow: auto;
+    overflow-y: scroll; /* Display vertical scrollbar when content overflows */
+    overflow-x: hidden; 
     display: inline-block; /* Ensure it only takes up as much space as needed */
   }
   
   .cardBox ul {
-    /* transform: rotate(-90deg); */
     list-style-type: none; /* Remove default list styles */
     margin: 0;
     padding: 0;
     overflow: auto;
   }
 
+  .playerThrees{
+    overflow-y: scroll; /* Display vertical scrollbar when content overflows */
+    overflow-x: hidden; 
+  }
 
-
-.playersCards{
-    width: fit-content;
-}
 @media (max-width: 600px) {
     .unoCard {
       width: 40px; /* Adjust card size for smaller screens */
@@ -259,4 +274,10 @@
     height: 75px;
     padding: 20px;
     
+  }
+
+  .james{
+    position: relative;
+    bottom: 85px;
+    left: 175px;
   }
