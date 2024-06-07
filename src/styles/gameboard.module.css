@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
 
 .main{
     border: 0;
     padding: 50px;
-  
+    font-family: "Unica One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     
 }
 
@@ -138,9 +141,23 @@
     display: inline-block; /* Ensure it only takes up as much space as needed */
     justify-content: center;
     margin: 0 auto;
+    font-family: "Unica One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
+.PlayercardBox ul {
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.yourTurn p{
+    font-family: "Unica One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .cardBox {
+    
     border: 2px solid rgba(255, 255, 255, 0.281);
     border-radius: 10px;
     height: 500px;
@@ -214,6 +231,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 10px;
 }
 
 

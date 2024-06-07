@@ -9,6 +9,12 @@ import React, { useState, useEffect, useCallback} from 'react';
 import { appendMutableCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export default function Home() {
+
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * max);
+  }
+
+  
   var allPlayer = [];
   const [lobby, setLobby] = useState([]); // using useState ensures lobby is populated just once
   const [Me, setMe] = useState(new Map());
@@ -20,7 +26,7 @@ export default function Home() {
   const [count, setCount] = useState(0);
   const [whosTurn, setwhosTurn] = useState(null);
   var cardsDeck = Game.gameStart();
-  const [deck, setDeck] = useState([cardsDeck[0]]);
+  const [deck, setDeck] = useState([cardsDeck[0],cardsDeck[1]]);
 
   var [playerNames,setPlayerNames] = useState([]);
 
@@ -29,6 +35,7 @@ export default function Home() {
 
   const [storedAmount, setStoredAmount] = useState(null); // set state 
 
+  
   const retrieveAmount = () => {
     try {
       var amt = parseInt(localStorage.getItem("amountOfPlayer"));
@@ -67,7 +74,7 @@ export default function Home() {
     }
   };
 
-  
+
 
   // sets up the card deck for each player
   useEffect(() => {
@@ -76,6 +83,8 @@ export default function Home() {
     setPlayerOne(Game.initPlayerDeck(cardsDeck));
     setPlayerTwo(Game.initPlayerDeck(cardsDeck));
     setPlayerThree(Game.initPlayerDeck(cardsDeck));
+
+    // cardsDeck.remove();
 
 
   }, []);
@@ -172,30 +181,30 @@ useEffect(() => {
 // Allows the ai to place cards 
   const playAi = (arr,name,deck) =>{
     var index = null;
-
     //  Looks for the best card to place on deck
     var card = Game.selectCard(arr,cardsDeck);
 
+  
+
     for(let i = 0; i < arr.length; i++){
 
-      if(arr[i].colour === deck[deck.length - 1].colour && arr[i].value === deck[deck.length - 1].value ){
+      // if(arr[i].colour == deck[deck.length - 1].colour && arr[i].value == deck[deck.length - 1].value ){
+      //   index = i;
+      //   break;
+      // }else 
+      
+      if (arr[i].colour == deck[deck.length - 1].colour ){
         index = i;
-
         break;
-      }else if (arr[i].colour === deck[deck.length - 1].colour ){
+      }else if(arr[i].value == deck[deck.length - 1].value ){
         index = i;
-
-        break;
-      }else if(arr[i].value === deck[deck.length - 1].value ){
-        index = i;
-
         break;
       }
     }
 
     try{
-    if (card != null && card.value == deck[deck.length - 1].value || card != null && 
-      card.colour === deck[deck.length - 1].colour) {
+    if (card != null && card.value == deck[deck.length - 1].value ||
+      card.colour == deck[deck.length - 1].colour) {
       // Log the card placed down
       console.log(playersTurn + "...Card placed down " + card.value + " : " + card.colour);
       // Create a new array without the matching card
@@ -243,15 +252,7 @@ useEffect(() => {
   // checkIfWon()
   }
 
-  const contains = (name,arr) => {
-    for (let i = 0; i < arr.length; i++){
-      if(arr[i] === name){
-        alert("true")
-        return true
-      } 
-    }
-    return false
-  }
+
 
   const checkIfWon = () =>{
 // alert("DDDd")
@@ -364,7 +365,7 @@ useEffect(() => {
 
               </li>
             </ul>
-            <p>{playersTurn ? `${playersTurn}+    's Turn` : 'No player turn set'}</p>
+            <p>{playersTurn ? `${playersTurn}+'s Turn` : 'No player turn set'}</p>
 
 
 
@@ -413,6 +414,7 @@ useEffect(() => {
                   
 
                   else{
+                
                     alert("Cant place that card")
                   }
                   
