@@ -28,68 +28,13 @@ export default function Home() {
   var MyPlayer = new Player("Evangelos", Me);
   const [storedAmount, setStoredAmount] = useState(null); // set state 
 
-
-  
-  const retrieveAmount = () => {
-    try {
-      var amt = parseInt(localStorage.getItem("amountOfPlayer"));
-      setStoredAmount(localStorage.getItem("amountOfPlayer"));
-
-      const tempLobby = [];
-      var tempNames = [];
-      switch(amt){
-        case 1:
-          tempLobby.push(Me);
-          tempLobby.push(PlayerOne);
-          tempNames.push("Me","PlayerOne")
-          break;  
-        
-        case 2:
-          tempLobby.push(Me);
-          tempLobby.push(PlayerOne);
-          tempLobby.push(PlayerTwo);
-          tempNames.push("Me","PlayerOne","PlayerTwo")
-          break;  
-
-        case 3:
-          tempLobby.push(Me);
-          tempLobby.push(PlayerOne);
-          tempLobby.push(PlayerTwo);
-          tempLobby.push(PlayerThree);
-          tempNames.push("Me","PlayerOne","PlayerTwo","PlayerThree")
-          break;  
-
-      }
-      setLobby(tempLobby)
-      setPlayerNames(tempNames);
-      setAllPlayers()
-
-    } catch (e) {
-      console.error('Failed to retrieve amount from localStorage', e);
-    }
-  };
-
-
-
-  // sets up the card deck for each player
-  useEffect(() => {
-    retrieveAmount();
-    setMe(Game.initPlayerDeck(cardsDeck)); // Set Me directly
-    setPlayerOne(Game.initPlayerDeck(cardsDeck));
-    setPlayerTwo(Game.initPlayerDeck(cardsDeck));
-    setPlayerThree(Game.initPlayerDeck(cardsDeck));
-
-    // cardsDeck.remove();
-
-
-  }, []);
-
+  var ai1 =  new Player("Jerry", PlayerOne);
+  var ai2 =  new Player("Johan", PlayerTwo);
+  var ai3 =  new Player("Tracey", PlayerThree);
   useEffect(() => {
     if (storedAmount !== null) {
       // Ai bots
-      var ai1 =  new Player("Jerry", PlayerOne);
-      var ai2 =  new Player("Johan", PlayerTwo);
-      var ai3 =  new Player("Tracey", PlayerThree);
+      
       let updatedAllPlayer = []; // Create a new array to hold the updated player list
 
       switch(lobby.length){
@@ -117,6 +62,61 @@ export default function Home() {
       setAllPlayers(updatedAllPlayer);
     }
   }, [storedAmount]);
+
+  const retrieveAmount = () => {
+    try {
+      var amt = parseInt(localStorage.getItem("amountOfPlayer"));
+      setStoredAmount(localStorage.getItem("amountOfPlayer"));
+
+      const tempLobby = [];
+      var tempNames = [];
+      switch(amt){
+        case 1:
+          tempLobby.push(Me);
+          tempLobby.push(PlayerOne);
+          tempNames.push("Me","Jerry")
+          break;  
+        
+        case 2:
+          tempLobby.push(Me);
+          tempLobby.push(PlayerOne);
+          tempLobby.push(PlayerTwo);
+          tempNames.push("Me","Jerry","Johan")
+          break;  
+
+        case 3:
+          tempLobby.push(Me);
+          tempLobby.push(PlayerOne);
+          tempLobby.push(PlayerTwo);
+          tempLobby.push(PlayerThree);
+          tempNames.push("Me","Jerry","Johan","Tracey")
+          break;  
+
+      }
+      setLobby(tempLobby)
+      setPlayerNames(tempNames);
+      setAllPlayers()
+
+    } catch (e) {
+      console.error('Failed to retrieve amount from localStorage', e);
+    }
+  };
+
+
+
+  // sets up the card deck for each player
+  useEffect(() => {
+    retrieveAmount();
+    setMe(Game.initPlayerDeck(cardsDeck)); // Set Me directly
+    setPlayerOne(Game.initPlayerDeck(cardsDeck));
+    setPlayerTwo(Game.initPlayerDeck(cardsDeck));
+    setPlayerThree(Game.initPlayerDeck(cardsDeck));
+
+    // cardsDeck.remove();
+
+
+  }, []);
+
 
   var playerTurns =  playerNames;
 
@@ -199,7 +199,7 @@ useEffect(() => {
       // Update the state with the new array
       // updates (my) card array
       switch(name){
-        case 'PlayerOne':
+        case 'Jerry':
           setPlayerOne(newCards);
 
         break;
@@ -492,6 +492,7 @@ useEffect(() => {
               alt="" 
               className={styles.unoCard} 
             /> 
+
           </li>
         ))}
            
@@ -503,14 +504,15 @@ useEffect(() => {
 </li>)}
 
 
-<div className={styles.yourTurn}>
-<p className={styles.james}>Player Three: {PlayerThree.length}</p>
-        </div>
+
 
 {storedAmount >= 3 && (
+
+
   
         <li className={styles.playerfours}>
-          
+            <p className={styles.james}>Player Three: {PlayerThree.length}</p>
+
           <div>
    
 {PlayerThree.length == 0 &&(
