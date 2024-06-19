@@ -49,7 +49,7 @@
     position: absolute;
     left: 0;
     margin-left: 30px;
-    top: 140px;
+    top: 180px;
     /* transform: rotate(90deg); */
 }
 .playerTwo ul{
@@ -93,13 +93,10 @@
 .playerfours{
 
         position: absolute;
-        bottom: 500px;
+bottom:600px;
         height:525px;
         width: 125px;
-        overflow-x: auto;
         transform: rotate(90deg);
-        border: 2px solid rgba(255, 255, 255, 0.281);
-        border-radius: 10px;
         justify-content: center;
         font-family: "Unica One", sans-serif;
       font-weight: 400;
@@ -156,10 +153,12 @@
     display: inline-block; /* Ensure it only takes up as much space as needed */
     justify-content: center;
     margin: 0 auto;
-    font-family: "Unica One", sans-serif;
+    font-family: "  Unica One", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
+
+
 
 .PlayercardBox ul {
     margin-left: 40px;
@@ -276,8 +275,10 @@
     
   }
 
-  .james{
+  .Tracey{
     position: relative;
-    bottom: 85px;
-    left: 175px;
+    bottom: 50px;
+    left: 0;
+z-index: 999;
   }
+
