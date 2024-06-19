@@ -204,14 +204,13 @@ useEffect(() => {
 
         break;
 
-        case 'PlayerTwo':
+        case 'Johan':
           setPlayerTwo(newCards);
 
         break;
 
-        case 'PlayerThree':
+        case 'Tracey':
           setPlayerThree(newCards);
-
         break;
 
         default:
@@ -258,19 +257,18 @@ useEffect(() => {
 
     if(playersTurn == name){
     switch(name){
-      case 'PlayerOne':
+      case 'Jerry':
         newDeck = [...PlayerOne, cardToAdd];
         setPlayerOne(newDeck);
         setPlayerGo()
       break;
 
-      case 'PlayerTwo':
+      case 'Johan':
         newDeck = [...PlayerTwo, cardToAdd];
         setPlayerTwo(newDeck);
         setPlayerGo()
       break;
-
-      case 'PlayerThree':
+      case 'Tracey':
         newDeck = [...PlayerThree, cardToAdd];
         setPlayerThree(newDeck);
         setPlayerGo()
@@ -396,17 +394,19 @@ useEffect(() => {
                   checkIfWon()
                 // This determines which AI is next to place a card
                   switch(playersTurn){
-                    case 'PlayerOne':
-                      playAi(PlayerOne,"PlayerOne",deck) 
+                    case 'Jerry':
+                      playAi(PlayerOne,"Jerry",deck) 
                       setPlayerGo()
                     break;
-                    case 'PlayerTwo':
-                      playAi(PlayerTwo,"PlayerTwo",deck) 
+                    case 'Johan':
+                      playAi(PlayerTwo,"Johan",deck) 
                       setPlayerGo()
+                                // tempNames.push("Me","Jerry","Johan","Tracey")
+
                     break;
 
-                    case 'PlayerThree':
-                      playAi(PlayerThree,"PlayerThree",deck) 
+                    case 'Tracey':
+                      playAi(PlayerThree,"Tracey",deck) 
                       setPlayerGo()
                     break;
  
