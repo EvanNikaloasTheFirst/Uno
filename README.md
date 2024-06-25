@@ -34,6 +34,8 @@ Check Points
 - [ ] Implement Settings for customization
 - [x] Make Gameboard Responsive
 - [x] Allow customization of players name
+- [ ] Implement Special cars (+4, Skip goes, etc...)
+- [ ] Deal with null player set bug 🐛
 
 ## Testing 
 - [ ] Complete Unit Testing
