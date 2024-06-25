@@ -29,9 +29,11 @@ Check Points
 - [x] Allow all users including (AI full capabilties of playing) ✅ 
 - [ ] Automate the AI turns (So User doesn't need to click to move onto the next go) 🛠️
 - [ ] Implement framer motion for nicer looking UI
-- [ ] Implment the rules for placing down the cards 🛠️
+- [x] Implment the rules for placing down the cards 🛠️
 - [ ] Implement Easy, Medium and Hard Levels
 - [ ] Implement Settings for customization
+- [x] Make Gameboard Responsive
+- [x] Allow customization of players name
 
 ## Testing 
 - [ ] Complete Unit Testing
