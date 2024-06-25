@@ -18,7 +18,16 @@ After then you have an option of restarting the game of quitting out.
 - CSS 
 - Vercel (For hosting)
 
-## Here's how it looks  🎥
+## Here's how it looks so far 🎥
+
+
+
+
+https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/15889591-3332-4e6d-ab98-fa9c32cc6a1b
+
+
+
+
 -------------
 **Build currently in progress! 🚧**
 
@@ -26,6 +35,7 @@ After then you have an option of restarting the game of quitting out.
 Check Points
 - [x] Break Down Game into classes (Game, Card, Player) ✅
 - [x] Select Amount of players to play ✅
+- [ ] Distribute cards from a single deck of cards
 - [x] Allow all users including (AI full capabilties of playing) ✅ 
 - [ ] Automate the AI turns (So User doesn't need to click to move onto the next go) 🛠️
 - [ ] Implement framer motion for nicer looking UI
