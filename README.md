@@ -51,5 +51,8 @@ Check Points
 - [ ] Complete Unit Testing
 - [ ] Complete User Testing
 - [ ] Complete Integration testing
+
+
+-------------
 ![Designer (15)](https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/4d553f41-3c34-4e31-9bc8-4fdcefcdf3b7)
 
