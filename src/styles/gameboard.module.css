@@ -3,7 +3,6 @@
 .main{
     border: 0;
     padding: 50px;
-    font-family: "Unica One", sans-serif;
     font-weight: 400;
     font-style: normal;
     
@@ -15,6 +14,8 @@
     justify-content: center;
     top: 50px;
 }
+
+
 .drawCards{
     width: 60px;
 }
@@ -29,14 +30,11 @@
     bottom: 0;
     margin-bottom: 50px;
 }
+.playernamesStyle{
+  color: #FFF;
+  font-family: "Unica One", sans-serif;
+}
 
-@media (max-width: 600px) {
-    .player .playersCards{
-        position: relative;
-        top: 90px;
-
-    }
-  }
 
 .player .playersCards{
     position: relative;
@@ -50,16 +48,15 @@
     left: 0;
     margin-left: 30px;
     top: 180px;
-    /* transform: rotate(90deg); */
 }
 .playerTwo ul{
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: auto;
-    top: 10px;
-    left: 35px;
-    /* transform: rotate(90deg); */
+    /* top: 35px; */
+    left: 15px;
+
 }
 
 /* Rotates each individual card to face head on */
@@ -93,18 +90,18 @@
 .playerfours{
 
         position: absolute;
-bottom:600px;
         height:525px;
+        bottom:850px;
         width: 125px;
         transform: rotate(90deg);
         justify-content: center;
-        font-family: "Unica One", sans-serif;
       font-weight: 400;
       font-style: normal;
 }
 .playerfours p{
     transform: rotate(270deg);
     position: relative;
+    /* bottom: 60px; */
 
 }
 
@@ -126,27 +123,32 @@ bottom:600px;
 .decks{
     position: relative;
     top: 200px;
-    border: 3px solid red;
-    border-radius: 10px;
+    border: 3px solid #ffffff69;
+    border-radius: 30px;
     padding: 10px;
     color: #FFF;
+    width: 200px;
     font-family: "Unica One", sans-serif;
 }
 
 .decks ul{
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
+  flex-direction: row;
+margin-left: 30px;
+list-style-type: none;
+}
+
+.displayTurn{
+  margin-left: 10px;
 }
 .decks ul li{
     margin-right: 25px;
+    margin-bottom: 20px;
 
 
 }
 .PlayercardBox{
     border: 2px solid rgba(255, 255, 255, 0.281);
     border-radius: 10px;
-    height: 100px;
     width: 500px;
     overflow-y: hidden; /* Display vertical scrollbar when content overflows */
     overflow-x: scroll; 
@@ -163,6 +165,7 @@ bottom:600px;
 .PlayercardBox ul {
     margin-left: 40px;
     margin-top: 10px;
+    margin: 0 auto;
 }
 
 .yourTurn p{
@@ -171,11 +174,10 @@ bottom:600px;
   font-style: normal;
 }
 .cardBox {
-    
     border: 2px solid rgba(255, 255, 255, 0.281);
     border-radius: 10px;
     height: 500px;
-    width: 150px;
+    width: 120px;
     overflow-y: scroll; /* Display vertical scrollbar when content overflows */
     overflow-x: hidden; 
     display: inline-block; /* Ensure it only takes up as much space as needed */
@@ -282,3 +284,81 @@ bottom:600px;
 z-index: 999;
   }
 
+
+
+
+@media screen and (max-width: 900px) {
+
+  .player .playersCards{
+      position: relative;
+      bottom: 90px;
+      right: 270px;
+      margin-bottom: 10px;
+      justify-content: center;
+
+  }
+
+  .cardBox {
+    height: 530px;
+    width: 95px;
+    position: relative;
+    right: 15px;
+
+  }
+
+  .playerThree .cardBox{
+    position: relative;
+    left: 28px;
+    }
+  
+    .PlayercardBox {
+      position: relative;
+
+      top: 100px;
+      margin: 0 auto;
+      left: 25%;
+      justify-content: center;
+    }
+.decks ul{
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin-left: 30px;  
+}
+
+.displayTurn{
+  width: 80%;
+}
+
+
+.playerfours .cardBox{
+  position: relative;
+left:10px;
+top: 5px;
+height: fit-content;
+width: 100px;
+}
+
+.playerfours .playernamesStyle{
+  position: relative;
+  right: 90px;
+  bottom: 100px;
+}
+.unoCard{
+  width: 46px;
+}
+  
+}
+
+/* Differnt pc monitor */
+@media screen and (max-height: 1700px) {
+.playerfours{
+  position: absolute;
+  top: -150px;
+margin: 0 auto;
+
+}
+
+
+
+}

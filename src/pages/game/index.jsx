@@ -4,7 +4,6 @@ import styles from "@/styles/gameboard.module.css";
 import mainStyles from "@/styles/Home.module.css";
 import Game from "@/classes/Game.jsx";
 import Player from "@/classes/Player.jsx";
-import { useRouter } from 'next/router';
 import React, { useState, useEffect, useCallback} from 'react';
 import { appendMutableCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
@@ -17,27 +16,27 @@ export default function Home() {
   const [PlayerTwo, setPlayerTwo] = useState(new Map());
   const [PlayerThree, setPlayerThree] = useState(new Map());
   const [allPlayers, setAllPlayers] = useState([]);
-  const [playersTurn, setPlayerTurn] = useState(null);
+  const [playersTurn, setPlayerTurn] = useState();
   const [count, setCount] = useState(0);
   var cardsDeck = Game.gameStart();
   const [deck, setDeck] = useState([]);
-
+  const [thePlayersName, setPlayersName] = useState([])
   const [gameIsFinished, setGetIsFinished] = useState(false);
   const [gameWinner,setGameWinner] = useState(null);
-
-
   var [playerNames,setPlayerNames] = useState([]);
+ const [storedAmount, setStoredAmount] = useState(null); // set state 
 
-  var MyPlayer = new Player("Evangelos", Me);
-  const [storedAmount, setStoredAmount] = useState(null); // set state 
 
+ useEffect(() =>{
+  setPlayersName(localStorage.getItem("PlayerName"))
+ })
+  
+  var MyPlayer = new Player(thePlayersName, Me);
   var ai1 =  new Player("Jerry", PlayerOne);
   var ai2 =  new Player("Johan", PlayerTwo);
   var ai3 =  new Player("Tracey", PlayerThree);
   useEffect(() => {
     if (storedAmount !== null) {
-      // Ai bots
-      
       let updatedAllPlayer = []; // Create a new array to hold the updated player list
 
       switch(lobby.length){
@@ -69,7 +68,7 @@ export default function Home() {
   const retrieveAmount = () => {
     try {
       var amt = parseInt(localStorage.getItem("amountOfPlayer"));
-      setStoredAmount(localStorage.getItem("amountOfPlayer"));
+      setStoredAmount(amt);
 
       const tempLobby = [];
       var tempNames = [];
@@ -77,14 +76,14 @@ export default function Home() {
         case 1:
           tempLobby.push(Me);
           tempLobby.push(PlayerOne);
-          tempNames.push("Me","Jerry")
+          tempNames.push(localStorage.getItem("PlayerName"),"Jerry")
           break;  
         
         case 2:
           tempLobby.push(Me);
           tempLobby.push(PlayerOne);
           tempLobby.push(PlayerTwo);
-          tempNames.push("Me","Jerry","Johan")
+          tempNames.push(localStorage.getItem("PlayerName"),"Jerry","Johan")
           break;  
 
         case 3:
@@ -92,7 +91,7 @@ export default function Home() {
           tempLobby.push(PlayerOne);
           tempLobby.push(PlayerTwo);
           tempLobby.push(PlayerThree);
-          tempNames.push("Me","Jerry","Johan","Tracey")
+          tempNames.push(localStorage.getItem("PlayerName"),"Jerry","Johan","Tracey")
           break;  
 
       }
@@ -115,21 +114,20 @@ export default function Home() {
     setPlayerTwo(Game.initPlayerDeck(cardsDeck));
     setPlayerThree(Game.initPlayerDeck(cardsDeck));
 
-    // cardsDeck.remove();
+    cardsDeck.removeCard();
 
 
   }, []);
 
 
-  var playerTurns =  playerNames;
+  var playerTurns = playerNames;
 
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
       const newCount = (prevCount + 1) % playerNames.length;
       console.log("Whos go > " + prevCount);
-      console.log(newCount + " count " + playerNames[newCount]);
-      return newCount; // Directly return the new count
 
+setCount(newCount)
       
     });
   }, [playerNames.length]);
@@ -225,14 +223,14 @@ useEffect(() => {
       const newDeck = [...deck, card];
        // get current array and adds the card just placed down into array
       setDeck(newDeck);
-    }else{
+    }else if(playersTurn  == name){
     drawCard(playersTurn)
-    // console.log(playersTurn + " is drawing a card");
   }
 
   }catch(e){
-    drawCard(playersTurn)
-    // console.log(playersTurn + " is drawing a card");
+    if(playersTurn  == name){
+      drawCard(playersTurn)
+    }
   }
 
   checkIfWon()
@@ -251,7 +249,7 @@ useEffect(() => {
       setGameWinner("Tracey")
     }else if(Me.length  == 0 ){
       alert("Winner me")
-      setGameWinner("Me")
+      setGameWinner(thePlayersName)
   }
 
   if(gameWinner != null){
@@ -298,8 +296,40 @@ useEffect(() => {
     }
   }
 
-  }    
-
+  }   
+  
+  const handleAITurn = () => {
+    switch (playersTurn) {
+      case 'Jerry':
+        playAi(PlayerOne, "Jerry", deck);
+        break;
+      case 'Johan':
+        playAi(PlayerTwo, "Johan", deck);
+        break;
+      case 'Tracey':
+        playAi(PlayerThree, "Tracey", deck);
+        break;
+      default:
+        checkIfWon();
+    }
+    setPlayerGo(); // This is called after each AI completes their turn
+  };
+  
+//
+  const handleCardClick = (item) => {
+    if (playersTurn === thePlayersName) {
+      if (Game.isCardSelectedValid(deck, item)) {
+        placeCard(item);
+        checkIfWon();
+        setPlayerGo();
+      } else {
+        alert("Can't place that card");
+      }
+    } else {
+      handleAITurn();
+    }
+  };
+  
 
   return (
     <>
@@ -330,18 +360,28 @@ useEffect(() => {
             <ul>
               <li>
               <p>Deck</p>
-              {deck.length > 0 && deck[deck.length - 1] && (
+              {/* Displaay blank card if no card has been placed down */}
+              {deck.length > 0 && deck[deck.length - 1] ? (
   <img
     src={`/sprites/${deck[deck.length - 1] .colour}/${deck[deck.length - 1] .colour}-${deck[deck.length - 1] .value}.png`}
     alt=""
     className={styles.unoCard}
   />
+): (
+  <img
+              src={"sprites/draw.png"}
+              alt=""
+              className={styles.unoCard}
+              onClick={() =>{
+                drawCard(playersTurn)
+                console.log(playersTurn + " is drawing a card");
+              }}
+            />
 )}
 
               </li>
-
               <li>
-<p>Draw</p>
+            <p>Draw</p>
             <img
               src={"sprites/draw.png"}
               alt=""
@@ -354,7 +394,8 @@ useEffect(() => {
 
               </li>
             </ul>
-            <p>{playersTurn ? `${playersTurn}+'s Turn` : 'No player turn set'}</p>
+            <p className={styles.displayTurn}>
+              {playersTurn ? `${playersTurn}'s Turn` : "NO player set"}</p>
 
 
 
@@ -363,6 +404,7 @@ useEffect(() => {
 
 <div className={styles.playerGameBoard}>
 {/* // get number of players from local storage */}
+
 <div className={styles.gameboardHands}>
      <ul className={styles.playersHands}>
 
@@ -371,12 +413,11 @@ useEffect(() => {
         <div className={styles.playersCards}>
 
         <div className={styles.yourTurn}>
-          <p>Evangelos: {Me.length}</p>
+        
         </div>
         <div className={styles.PlayercardBox}>
        
           <ul>
-{/* Players Cards */}
 {/* Loop over the arry of objects (uno array cards) */}
 {[...Me.values()].map((item, index) => (
           <li key={index}> 
@@ -384,60 +425,22 @@ useEffect(() => {
               src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
               alt="" 
               className={styles.unoCard}  
-              onClick={() => {
-        
-                if(playersTurn === "Me"){
-                  if(Game.isCardSelectedValid(deck,item)){
-                  setPlayerGo()
-                  placeCard(item);
-                  checkIfWon()
-                  }else{
-                    console.log(deck[deck.length-1].colour + " : "+ [deck.length - 1].value)
-                    alert("Cant place that card")
-                  }
-                  
-                }
-                
-                else{
-                  checkIfWon()
-                // This determines which AI is next to place a card
-                  switch(playersTurn){
-                    case 'Jerry':
-                      playAi(PlayerOne,"Jerry",deck) 
-                      setPlayerGo()
-                    break;
-                    case 'Johan':
-                      playAi(PlayerTwo,"Johan",deck) 
-                      setPlayerGo()
-                    break;
-
-                    case 'Tracey':
-                      playAi(PlayerThree,"Tracey",deck) 
-                      setPlayerGo()
-                    break;
- 
-                    default:
-                      checkIfWon()
-                      // setPlayerGo()
-                      
-                  }
-                }
-                
-              }}
+              onClick={() => handleCardClick(item)}
             /> 
           </li>
         ))}
 
           </ul>
+   
           </div>
+          
         </div>
+
+        <p className={styles.playernamesStyle}>{thePlayersName}: {Me.length}</p>
         </li>
         {storedAmount >= 1 && (
         <li className={styles.playerTwo}>
         <div className={styles.playersCards}>
-        <div className={styles.yourTurn}>
-          <p>Jerry:  {PlayerOne.length}</p>
-        </div>
           {PlayerOne.length == 0 &&(
           <div>
             <p>WINNER</p>
@@ -457,22 +460,22 @@ useEffect(() => {
               alt="" 
               className={styles.unoCard} 
 
-            
 
             /> 
           </li>
         ))}
                  </li>
           </ul>
+      
           </div>
+          <p className={styles.playernamesStyle}> Jerry:  {PlayerOne.length}</p>
         </div>
 </li>)}
 
 {storedAmount >= 2 && (
         <li className={styles.playerThree}>
-
            <div className={styles.yourTurn}>
-          <p>Johan: {PlayerTwo.length}</p>
+        
         </div>
 
         <div className={styles.playersCards}>
@@ -496,6 +499,7 @@ useEffect(() => {
           </ul>
       
           </div>
+          <p className={styles.playernamesStyle}>Johan: {PlayerTwo.length}</p>
         </div>
 </li>)}
 
@@ -506,7 +510,7 @@ useEffect(() => {
 <>
 
 <div className={styles.Tracey}>
-    <p>Tracey: {PlayerThree.length}</p>
+   
   </div>
   <li className={styles.playerfours}>
 
@@ -528,13 +532,18 @@ useEffect(() => {
 
     </li>
   ))}
-     
+      
            </li>
+
+           
     </ul>
 
     </div>
+     <p className={styles.playernamesStyle}>Tracey: {PlayerThree.length}</p>
   </div>
+
 </li>
+
 </>
 )}
 

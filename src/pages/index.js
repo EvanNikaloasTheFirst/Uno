@@ -6,7 +6,8 @@ import { useState } from "react";
 import { useRouter } from 'next/router';
 
 export default function Home() {
-  const router = useRouter();
+
+  var [playersName, setPlayersName] = useState(null)
   try{
     // clear the local storage when homepage is loaded
   localStorage.removeItem('amountOfPlayer');
@@ -15,11 +16,15 @@ export default function Home() {
   }
   var selectedPlayers = (amount) =>{
     localStorage.setItem("amountOfPlayer" ,amount);
+    
     console.log("Clicked " + amount)
   }
- var [showPlayersButton, setShowPlayerButton] = useState(false); // initially set variable to false. setShowPlayerButton used to update variable
+ var [showPlayersButton, setShowPlayerButton] = useState
+ (false);
+
+ var [enterNameBoxPresent, setEnterNameBox] = useState(false);
   const sayHello = () => {
-    showButton(); // shows the option for amount of players to use
+    showButton(); 
   };
 
   
@@ -28,6 +33,14 @@ export default function Home() {
 
   var showButton = () =>{
     setShowPlayerButton(prevState => !prevState);
+    setEnterNameBox(true)
+
+
+  }
+
+  const handleInput = (event) =>{
+    setPlayersName(event.target.value)
+    localStorage.setItem("PlayerName" ,playersName);
   }
 
   return (
@@ -51,25 +64,50 @@ export default function Home() {
         <div>
           
           <div className={styles.amountOfPlayers}>
-          <p className={styles.amtPlayerTxt}>Select the amount of players</p>
+          {enterNameBoxPresent &&(
+            <div className={styles.enterName}>
+              <p>Enter your name</p>
+<input type="text" placeholder="Search.." className={styles.searchbox} value={playersName}
+onChange={handleInput}
+/>
+            </div>
+
+          )}
 
           { showPlayersButton && (
-              <ul>
+            <> 
+            <p className={styles.amtPlayerTxt}>Select the amount of players</p>
+
+              <ul className={styles.amtBtns}>
                 {amountOfPlayer.map(amount => (
                   <li key={amount}>
                     <a href="/game">
                     <button
           className={styles.startGame}
-          //  onClick={() => selectedPlayers(amount)} ensures that the selectedPlayers function is only called when the button is actually clicked
           onClick={() => selectedPlayers(amount)}> 
                       {amount}
                     </button>
+
+
 </a>
                   </li>
-                  
-                ))}
+
+
+
+
+
+                )
+                )}
+
+                
               </ul>
+</>
+
           )}
+
+
+
+
 
           </div>
           

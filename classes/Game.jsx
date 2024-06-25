@@ -87,7 +87,6 @@ return arrayOfCards;
 
         if(cardToBePlaced.value === deck[deck.length - 1].value || cardToBePlaced.colour === 
         deck[deck.length-1].colour){
-            console.log("yaya")
             return true;
         }else{
             console.log(deck.length)
@@ -101,6 +100,20 @@ console.log(cardToBePlaced.value + " My card " + cardToBePlaced.colour)
 
         
         
+    }
+
+    static initUserDeck(cardsDeck){
+
+        var cardArray = []
+
+        var value;
+        for (let i =0; i < 7; i++){
+            value = Math.floor(Math.random()* cardsDeck.length) + 1;
+            cardArray.push(cardsDeck[value])
+            cardsDeck.removeAt(cardsDeck,cardsDeck[value]) // removes the distributed card from the card deck
+        }
+
+
     }
     
 
