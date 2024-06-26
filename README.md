@@ -41,10 +41,10 @@ Check Points
 - [ ] Implement framer motion for nicer looking UI
 - [x] Implment the rules for placing down the cards 🛠️
 - [ ] Implement Easy, Medium and Hard Levels
-- [ ] Implement Settings for customization
-- [x] Make Gameboard Responsive
+- [ ] Implement Settings for customisation
+- [x] Make gameboard responsive
 - [x] Allow customization of players name
-- [ ] Implement Special cars (+4, Skip goes, etc...)
+- [ ] Implement special cards (+4, Skip, goes, etc...)
 - [ ] Deal with null player set bug 🐛
 
 ## Testing 
