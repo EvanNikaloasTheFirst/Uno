@@ -21,22 +21,23 @@ After then you have an option of restarting the game of quitting out.
 ## Here's how it looks so far 🎥
 
 
-
-
-
-
 https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/c00eb6bc-e96e-42bb-8f58-f074d8b4e7f9
 
 
+## How to play
 
+1. Click 'Start game'
+2. Enter your name
+3. Click the amount of opponents you want to face
+4. Good luck! 🌟
 
 
 
 -------------
 **Build currently in progress! 🚧**
 
-### Next task: Deal with players turn setting as null
--[ ] completed next task
+### Next task:
+- [ ] Deal with players turn setting as null
 
 ## Functionality 
 Check Points
