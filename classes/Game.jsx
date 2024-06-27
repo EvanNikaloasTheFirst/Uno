@@ -13,8 +13,13 @@ class Game{
         cardsDeck.push(...this.generateCards("blue"));
         cardsDeck.push(...this.generateCards("yellow"));
         cardsDeck.push(...this.generateCards("red"));
-        cardsDeck.push(...this.generateCards("blue"));
         return cardsDeck;
+    }
+
+    static generateRandomCard(cardsDeck){
+        var value = Math.floor(Math.random()* cardsDeck.length) + 1;
+
+        return cardsDeck[value]
     }
 
     
@@ -51,7 +56,6 @@ return arrayOfCards;
 }
 
     static generateRandomNumber(){
-
         switch (colour){
             // To determine how to select the correct sprite
                         case 'green':
@@ -76,16 +80,40 @@ return arrayOfCards;
     }
     
 
-    static isCardSelectedValid(cardOnDeck,cardToBePlaced){
-        var valid = false;
-        if(cardOnDeck.colour === cardToBePlaced.colour){
-            valid = true;
+    static isCardSelectedValid(deck,cardToBePlaced){
+
+
+        if (deck.length == 0) return true;
+
+        if(cardToBePlaced.value === deck[deck.length - 1].value || cardToBePlaced.colour === 
+        deck[deck.length-1].colour){
+            return true;
+        }else{
+            console.log(deck.length)
+console.log(cardToBePlaced.value + " My card " + cardToBePlaced.colour)
+
+            for(let i =0; i < deck.length; i ++){
+                console.log(deck[i].value + " In deck " + deck[i].colour )
+            }
+            return false;
         }
 
-        if (cardOnDeck.value === cardToBePlaced.value){
-            valid = true;
+        
+        
+    }
+
+    static initUserDeck(cardsDeck){
+
+        var cardArray = []
+
+        var value;
+        for (let i =0; i < 7; i++){
+            value = Math.floor(Math.random()* cardsDeck.length) + 1;
+            cardArray.push(cardsDeck[value])
+            cardsDeck.removeAt(cardsDeck,cardsDeck[value]) // removes the distributed card from the card deck
         }
-        return valid;
+
+
     }
     
 
@@ -94,8 +122,7 @@ return arrayOfCards;
         var playerDeck = [];
         for(let i = 0; i < 7; i++){
             var randomIndex = Math.floor(Math.random()* mockDeck.length);
-            // let randomCard = mockDeck.splice(randomIndex,1)[0];
-
+ 
             playerDeck.push(mockDeck[randomIndex]);
 
             // remove card from the card deck
@@ -114,7 +141,53 @@ return arrayOfCards;
     }
 }
 
+static selectCard(arr,deck){
+    //  Looks for the best card to place on deck
+        var card = Game.findBestCard(arr,deck);
+        return card;
+        // }
+      
+    
+    }
+    
+    static findBestCard(arr,deck){
+    //  Looks for matching value & colour
+ 
+    var card = null;
+        for (let i = 0; i < arr.length; i++){
+            if (arr[i].value == deck[deck.length - 1].value && arr[i].colour == deck[deck.length - 1].colour){
+               return arr[i];
+            }
+        }
+    // looks for matching colour
+            for (let i = 0; i < arr.length; i++){
+                if (arr[i].colour == deck[deck.length - 1].colour){
+                    
+                    card= arr[i];;
+                } 
+            }
+        
+        //  Looks for matching value
+            for (let i = 0; i < arr.length; i++){
+                if (arr[i].value == deck[deck.length - 1].value){
+
+                    card= arr[i];;
+                }
+            }
+          
+
+    try{
+        alert(card[i].colour + " : " + card[i].value)
+    }catch(e){
+
+    }
+            
+    
+    return card; //draw card if its null
+    }
+
 }
+
 
 
 Game.propTypes = { 

@@ -35,6 +35,18 @@
   margin-bottom: 25px;
 }
 
+.enterName{
+  color: #FFF;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.searchbox{
+  width: 180px;
+  border-radius: 4px;
+  height: 50px;
+  background-color: #ECD407;;
+  margin-bottom: 15px;
+}
 .amtPlayerTxt{
   color: #FFF;
   font-size: 20px;
@@ -47,9 +59,23 @@
   display: flex;
   list-style-type: none;
   padding: 0;
+  
 }
 
 .amountOfPlayers li {
   margin: 0 10px;
 }
 
+.amtBtns{
+  margin-left: 10px;
+}
+
+
+
+@media screen and (max-width: 900px) {
+
+
+
+
+
+}
