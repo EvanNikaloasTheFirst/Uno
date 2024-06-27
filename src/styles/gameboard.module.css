@@ -2,17 +2,9 @@
 
 .main{
     border: 0;
-    padding: 50px;
     font-weight: 400;
     font-style: normal;
     
-}
-
-.unoLogo{
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    top: 50px;
 }
 
 
@@ -20,104 +12,15 @@
     width: 60px;
 }
 
-
-.playersHands{
-    list-style-type: none;
-}
-
-.player{
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 50px;
-}
 .playernamesStyle{
   color: #FFF;
   font-family: "Unica One", sans-serif;
 }
 
 
-.player .playersCards{
-    position: relative;
-    right: 200px;
-}
-
-
-/* ---Player Two cards */
-.playerTwo{
-    position: absolute;
-    left: 0;
-    margin-left: 30px;
-    top: 180px;
-}
-.playerTwo ul{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: auto;
-    /* top: 35px; */
-    left: 15px;
-
-}
-
-/* Rotates each individual card to face head on */
-.playerTwo ul li img{
-    position: relative;
-    transform: rotate(90deg);
-}
-
-
-/* ----------- */
-
-.playerThree{
-    position: absolute;
-    right: 40px;
-    bottom: 200px;
-    /* transform: rotate(90deg); */
-}
-.playerThree ul{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 35px;
-    overflow: auto;
-}
-.playerThree ul li img{
-    position: relative;
-    transform: rotate(90deg);
-}
-
-
-.playerfours{
-
-        position: absolute;
-        height:525px;
-        bottom:850px;
-        width: 125px;
-        transform: rotate(90deg);
-        justify-content: center;
-      font-weight: 400;
-      font-style: normal;
-}
-.playerfours p{
-    transform: rotate(270deg);
-    position: relative;
-    /* bottom: 60px; */
-
-}
-
-.playerfours ul{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    left: 25px;
-}
-.playerfours ul li img{
-    position: relative;
-    transform: rotate(90deg);
-}
 /* Styling the cardds and players deck */
 .unoCard{
-    width: 50px;
+    width: 40px;
 }
 
 .decks{
@@ -129,11 +32,11 @@
     color: #FFF;
     width: 200px;
     font-family: "Unica One", sans-serif;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .decks ul{
-  flex-direction: row;
-margin-left: 30px;
 list-style-type: none;
 }
 
@@ -141,224 +44,156 @@ list-style-type: none;
   margin-left: 10px;
 }
 .decks ul li{
-    margin-right: 25px;
-    margin-bottom: 20px;
-
-
-}
-.PlayercardBox{
-    border: 2px solid rgba(255, 255, 255, 0.281);
-    border-radius: 10px;
-    width: 500px;
-    overflow-y: hidden; /* Display vertical scrollbar when content overflows */
-    overflow-x: scroll; 
-    display: inline-block; /* Ensure it only takes up as much space as needed */
-    justify-content: center;
-    margin: 0 auto;
-    font-family: "  Unica One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  position: relative;
+  left: 50px;
 }
 
-
-
-.PlayercardBox ul {
-    margin-left: 40px;
-    margin-top: 10px;
-    margin: 0 auto;
+.gameboard{
+  position: relative;
+  width: 90vw;
+  height: 80vh;
+  border: 2px solid rgba(255, 255, 0, 0.342);
+  border-radius: 10px;
 }
-
-.yourTurn p{
-    font-family: "Unica One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+.playernamesStyle{
+  padding: 10px;
 }
-.cardBox {
-    border: 2px solid rgba(255, 255, 255, 0.281);
-    border-radius: 10px;
-    height: 500px;
-    width: 120px;
-    overflow-y: scroll; /* Display vertical scrollbar when content overflows */
-    overflow-x: hidden; 
-    display: inline-block; /* Ensure it only takes up as much space as needed */
-  }
-  
-  .cardBox ul {
-    list-style-type: none; /* Remove default list styles */
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-  }
-
-  .playerThrees{
-    overflow-y: scroll; /* Display vertical scrollbar when content overflows */
-    overflow-x: hidden; 
-  }
-
-@media (max-width: 600px) {
-    .unoCard {
-      width: 40px; /* Adjust card size for smaller screens */
-    }
-  }
-
-.playersCards ul{
-    display: flex;
-    flex-direction: row;
-}
-
-.playersCards ul li{
-    list-style-type: none;
-}
-.playersCards ul li img{
-    padding: 10px;
-}
-
-
-.playersHands .player .playersCards ul li img:hover{
-    position: relative;
-   bottom: 10px;
-}
-
-
-
-   @keyframes selected {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(5px); }
-    50% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-    100% { transform: translateX(0); }
-  }
-  
-  .selected {
-    animation: selected 0.5s ease-in-out infinite; /* Adjust the duration and easing as needed */
-  }
-  
-
-  .playAgain {
-    background-color: pink;
-    position: absolute;
-    z-index: 999;
-    width: 350px;
-    height: 300px;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 10px;
-}
-
-
-  .playAgain p {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    font-size: 50px;
-  }
-
-  .playAgain ul {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
-    margin: 0 auto;
-    justify-content: center;
-  }
-
-  .playAgain ul li{
-   margin-right: 20px;
-  }
-
-  .playAgain button{
-    width: 125px;
-    height: 75px;
-    padding: 20px;
-    
-  }
-
-  .Tracey{
-    position: relative;
-    bottom: 50px;
-    left: 0;
-z-index: 999;
-  }
-
-
-
-
-@media screen and (max-width: 900px) {
-
-  .player .playersCards{
-      position: relative;
-      bottom: 90px;
-      right: 270px;
-      margin-bottom: 10px;
-      justify-content: center;
-
-  }
-
-  .cardBox {
-    height: 530px;
-    width: 95px;
-    position: relative;
-    right: 15px;
-
-  }
-
-  .playerThree .cardBox{
-    position: relative;
-    left: 28px;
-    }
-  
-    .PlayercardBox {
-      position: relative;
-
-      top: 100px;
-      margin: 0 auto;
-      left: 25%;
-      justify-content: center;
-    }
-.decks ul{
+.playerOneCards{
   display: flex;
   flex-direction: row;
+  position: absolute; /* Changed from relative to absolute */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  justify-content: center;
+  border: 2px solid #ffffff7a;
+  width: 100%;
+  border-radius: 10px;
+  min-width: 80%;
+}
+
+.playerOneCards ul li{
+  margin-right: 5px;
+}
+
+.playerOneCards ul{
+  display: flex;
+  flex-direction: row;
+   list-style-type: none;
+
+}
+
+.playerTwoCards ul{
   list-style-type: none;
-  margin-left: 30px;  
 }
 
-.displayTurn{
-  width: 80%;
+.playerTwoCards{
+  display: flex;
+  flex-direction: row;
+  position: absolute; /* Changed from relative to absolute */
+  top: 50%; /* Position at the vertical center */
+  left: 0; /* Position at the far left */
+  transform: translateY(-50%); /* Adjust to center the element vertically */
+  margin: 0;
+  justify-content: center;
+  list-style-type: none;
+  
+}
+
+.playerTwoCards ul{
+list-style-type: none;
+
+}
+
+.playerTwoCards ul li, .playerFourCards ul li{
+  margin-top: -15px;
+  transform: rotate(90deg);
+  
 }
 
 
-.playerfours .cardBox{
-  position: relative;
-left:10px;
-top: 5px;
-height: fit-content;
+.playerTwoCards ul{
+  list-style-type: none;
+  border: 2px solid #ffffff7a;
+height: 500px;
+border-radius: 10px;
 width: 100px;
 }
 
-.playerfours .playernamesStyle{
+.playerTwoCards ul li{
   position: relative;
-  right: 90px;
-  bottom: 100px;
-}
-.unoCard{
-  width: 46px;
-}
-  
+  top: 100px;
 }
 
-/* Differnt pc monitor */
-@media screen and (max-height: 1700px) {
-.playerfours{
+.playerThreeCards {
+  display: flex;
+  flex-direction: row;
   position: absolute;
-  top: -150px;
-margin: 0 auto;
-
+  top: 0; /* Align at the top */
+  left: 0; /* Align at the left edge */
+  right: 0; /* Align at the right edge */
+  justify-content: center; /* Center the content horizontally */
+  border: 2px solid #ffffff7a;
+  min-width: 100%;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 10px; /* Optional: space around content */
 }
 
-
-
+.playerThreeCards ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
 }
+
+  .playerThreeCards ul li{
+    margin-right: 5px;
+  }
+
+  
+
+  .playerFourCards{
+    display: flex;
+    flex-direction: row;
+    position: absolute; /* Changed from relative to absolute */
+    top: 50%; /* Position at the vertical center */
+    right: 0; /* Position at the far left */
+    transform: translateY(-50%); /* Adjust to center the element vertically */
+    margin: 0;
+    justify-content: center;
+    
+    
+  }
+
+  .playerFourCards ul{
+    list-style-type: none;
+    border: 2px solid #ffffff7a;
+  height: 500px;
+  border-radius: 10px;
+  width: 100px;
+  }
+
+  .playerFourCards ul li{
+    position: relative;
+    top: 100px;
+  }
+
+
+  @media (max-width: 600px) {
+    .decks{
+      margin: 100px;
+      width: fit-content;
+      margin: 0 auto;
+      justify-content: center;
+    }
+
+    .decks ul {
+      position: relative;
+      right: 18px;
+    }
+
+    
+    }
+    

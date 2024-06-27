@@ -91,7 +91,7 @@ export default function Home() {
           tempLobby.push(PlayerOne);
           tempLobby.push(PlayerTwo);
           tempLobby.push(PlayerThree);
-          tempNames.push(localStorage.getItem("PlayerName"),"Jerry","Johan","Tracey")
+          tempNames.push(localStorage.getItem("PlayerName"),"Jerry","Tracey","Johan")
           break;  
 
       }
@@ -113,10 +113,6 @@ export default function Home() {
     setPlayerOne(Game.initPlayerDeck(cardsDeck));
     setPlayerTwo(Game.initPlayerDeck(cardsDeck));
     setPlayerThree(Game.initPlayerDeck(cardsDeck));
-
-    cardsDeck.removeCard();
-
-
   }, []);
 
 
@@ -396,30 +392,16 @@ useEffect(() => {
             </ul>
             <p className={styles.displayTurn}>
               {playersTurn ? `${playersTurn}'s Turn` : "NO player set"}</p>
-
-
-
 </div>
 
 
-<div className={styles.playerGameBoard}>
-{/* // get number of players from local storage */}
 
-<div className={styles.gameboardHands}>
-     <ul className={styles.playersHands}>
-
-      {/* Player One -------------------------------*/}
-        <li className={styles.player}>
-        <div className={styles.playersCards}>
-
-        <div className={styles.yourTurn}>
-        
-        </div>
-        <div className={styles.PlayercardBox}>
-       
-          <ul>
+<div className={styles.playerOneCards}>
+<p className={styles.playernamesStyle}>{thePlayersName}: {Me.length}</p>
+       <ul>
 {/* Loop over the arry of objects (uno array cards) */}
 {[...Me.values()].map((item, index) => (
+  
           <li key={index}> 
             <img 
               src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
@@ -431,128 +413,77 @@ useEffect(() => {
         ))}
 
           </ul>
-   
-          </div>
           
-        </div>
+   </div>
+{/* End of Players Deck */}
+<div className={styles.playerTwoCards}>
+  
+<ul>
+<p className={styles.playernamesStyle}>Jerry: {PlayerOne.length}</p>
+{/* Loop over the arry of objects (uno array cards) */}
+{[...PlayerOne.values()].map((item, index) => (
 
-        <p className={styles.playernamesStyle}>{thePlayersName}: {Me.length}</p>
-        </li>
-        {storedAmount >= 1 && (
-        <li className={styles.playerTwo}>
-        <div className={styles.playersCards}>
-          {PlayerOne.length == 0 &&(
-          <div>
-            <p>WINNER</p>
-            <ul>
-            <li> <button>Play Again?</button></li>
-            <li><button>Back to home</button></li>
-            </ul> 
-            </div>
-      )}
-          <div className={styles.cardBox}>
-          <ul>
-            <li>       
-            {[...PlayerOne.values()].map((item, index) => (
-          <li key={index}> 
-            <img 
-              src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
-              alt="" 
-              className={styles.unoCard} 
+<li key={index}>
+<img
+src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+alt=""
+className={styles.unoCard}
+onClick={() => handleCardClick(item)}
+/>
+</li>
+))}
 
+</ul>
 
-            /> 
-          </li>
-        ))}
-                 </li>
-          </ul>
-      
-          </div>
-          <p className={styles.playernamesStyle}> Jerry:  {PlayerOne.length}</p>
-        </div>
-</li>)}
+</div>
+
 
 {storedAmount >= 2 && (
-        <li className={styles.playerThree}>
-           <div className={styles.yourTurn}>
-        
-        </div>
 
-        <div className={styles.playersCards}>
-
-        <div className={styles.cardBox}>
-       
-          <ul>
-            <li>       
-            {[...PlayerTwo.values()].map((item, index) => (
+<div className={styles.playerThreeCards}>
+       <ul>
+        <p className={styles.playernamesStyle}>Johan: {PlayerTwo.length}</p>
+{/* Loop over the arry of objects (uno array cards) */}
+{[...PlayerTwo.values()].map((item, index) => (
+  
           <li key={index}> 
             <img 
               src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
               alt="" 
-              className={styles.unoCard} 
+              className={styles.unoCard}  
+              onClick={() => handleCardClick(item)}
             /> 
-
           </li>
         ))}
-           
-                 </li>
+
           </ul>
-      
-          </div>
-          <p className={styles.playernamesStyle}>Johan: {PlayerTwo.length}</p>
-        </div>
-</li>)}
-
-
-
-
-{storedAmount >= 3 && (
-<>
-
-<div className={styles.Tracey}>
-   
-  </div>
-  <li className={styles.playerfours}>
-
-    
-
-  <div className={styles.playersCards}>
-
-  <div className={styles.cardBox}>
- 
-    <ul>
-      <li>       
-      {[...PlayerTwo.values()].map((item, index) => (
-    <li key={index}> 
-      <img 
-        src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
-        alt="" 
-        className={styles.unoCard} 
-      /> 
-
-    </li>
-  ))}
-      
-           </li>
-
-           
-    </ul>
-
-    </div>
-     <p className={styles.playernamesStyle}>Tracey: {PlayerThree.length}</p>
-  </div>
-
-</li>
-
-</>
+          
+   </div>
 )}
 
 
-            </ul>
-          </div> 
-          
-        </div>    
-        
+{storedAmount >= 3 && (
+<div className={styles.playerFourCards}>
+  
+<ul>
+<p className={styles.playernamesStyle}>Tracey: {PlayerThree.length}</p>
+{/* Loop over the arry of objects (uno array cards) */}
+{[...PlayerThree.values()].map((item, index) => (
+
+<li key={index}>
+<img
+src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+alt=""
+className={styles.unoCard}
+onClick={() => handleCardClick(item)}
+/>
+</li>
+))}
+
+</ul>
+
+</div>
+)}
         </div>
         
       </main>
