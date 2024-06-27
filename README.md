@@ -23,13 +23,20 @@ After then you have an option of restarting the game of quitting out.
 
 
 
-https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/15889591-3332-4e6d-ab98-fa9c32cc6a1b
+
+
+https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/c00eb6bc-e96e-42bb-8f58-f074d8b4e7f9
+
+
 
 
 
 
 -------------
 **Build currently in progress! 🚧**
+
+### Next task: Deal with players turn setting as null
+-[ ] completed next task
 
 ## Functionality 
 Check Points
@@ -46,6 +53,7 @@ Check Points
 - [x] Allow customization of players name
 - [ ] Implement special cards (+4, Skip, goes, etc...)
 - [ ] Deal with null player set bug 🐛
+- [ ] Add animations to card picked up and placed down
 
 ## Testing 
 - [ ] Complete Unit Testing
