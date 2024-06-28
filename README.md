@@ -55,6 +55,8 @@ Check Points
 - [ ] Implement special cards (+4, Skip, goes, etc...)
 - [ ] Deal with null player set bug 🐛
 - [ ] Add animations to card picked up and placed down
+- [x] Begin Unit Testing
+- [ ] Begin Integration Testing
 
 ## Testing 
 - [ ] Complete Unit Testing
