@@ -56,7 +56,7 @@ export default function Home() {
       <main className={`${styles.main}`}>
         <div className={styles.WelcomeBlock}>
         <div>
-          <img src="/uno_logo.png" className={styles.unoLogo}/>
+          <img src="/uno_logo.png" className={styles.unoLogo} alt="unoLogo"/>
           
         </div>
         
@@ -67,7 +67,7 @@ export default function Home() {
           {enterNameBoxPresent &&(
             <div className={styles.enterName}>
               <p>Enter your name</p>
-<input type="text" placeholder="Search.." className={styles.searchbox} value={playersName}
+<input type="text" placeholder="Enter name.." className={styles.searchbox} value={playersName}
 onChange={handleInput}
 />
             </div>
