@@ -4,10 +4,56 @@
     border: 0;
     font-weight: 400;
     font-style: normal;
-    
+    font-family: "Unica One", sans-serif;
+}
+.navigationBar{
+  width: 100%;
+  position: absolute; /* Changed from relative to absolute */
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #e8d50c;
+  height: 80px;
+  padding-bottom: 20px;
+  font-family: "Unica One", sans-serif;
+
+}
+
+.navigationBar ul {
+
+  justify-content: start;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.navigationBar ul li {
+position: relative;
+top: 3px;
+}
+.menuIcons{
+width: 200px;
+height: auto;
+}
+
+.exit, .save{
+  border-radius: 10px;
+  padding: 6px;
+}
+
+.unoNavLogo{
+  width: 90px;
+  height: auto;
+  position: relative;
+  left: 92vw;
+  bottom: 50px;
 }
 
 
+.navigationBar ul li {
+  margin-right: 10px;
+}
 .drawCards{
     width: 60px;
 }
@@ -17,40 +63,54 @@
   font-family: "Unica One", sans-serif;
 }
 
+.menuIcons{
+  width: 30px;
+}
+
 
 /* Styling the cardds and players deck */
 .unoCard{
     width: 40px;
 }
 
-.decks{
-    position: relative;
-    top: 200px;
-    border: 3px solid #ffffff69;
-    border-radius: 30px;
-    padding: 10px;
-    color: #FFF;
-    width: 200px;
-    font-family: "Unica One", sans-serif;
-    margin: 0 auto;
-    justify-content: center;
+.decks {
+  position: absolute; /* Use absolute positioning for centering */
+  top: 50%; /* Move the top edge to the vertical center */
+  left: 50%; /* Move the left edge to the horizontal center */
+  transform: translate(-50%, -50%); /* Center the element precisely */
+  border: 3px solid #ffffff69;
+  border-radius: 30px;
+  padding: 10px;
+  color: #FFF;
+  width: 200px;
+  font-family: "Unica One", sans-serif;
 }
 
 .decks ul{
 list-style-type: none;
+display: flex;
+flex-direction: row;
 }
 
 .displayTurn{
-  margin-left: 10px;
+  display: flex;
+  background-color: green;
+  width: fit-content;
+  padding: 10px;
+  border: 1px solid #FFF;
+  border-radius: 10px;
+  margin: 0 auto;
+justify-content: center;
 }
 .decks ul li{
   position: relative;
-  left: 50px;
+margin: 0 auto;
+justify-content: center;
 }
 
 .gameboard{
   position: relative;
-  width: 90vw;
+  width: 95vw;
   height: 80vh;
   border: 2px solid rgba(255, 255, 0, 0.342);
   border-radius: 10px;
@@ -123,7 +183,7 @@ width: 100px;
 
 .playerTwoCards ul li{
   position: relative;
-  top: 100px;
+    top: 30px;
 }
 
 .playerThreeCards {
@@ -135,7 +195,7 @@ width: 100px;
   right: 0; /* Align at the right edge */
   justify-content: center; /* Center the content horizontally */
   border: 2px solid #ffffff7a;
-  min-width: 100%;
+  /* min-width: 100%; */
   border-radius: 10px;
   margin: 0 auto;
   padding: 10px; /* Optional: space around content */
@@ -173,13 +233,17 @@ width: 100px;
   height: 500px;
   border-radius: 10px;
   width: 100px;
+  overflow-y: auto;
   }
 
   .playerFourCards ul li{
     position: relative;
-    top: 100px;
+    top: 30px;
   }
 
+  .footer{
+    background-color: #FFEA00;
+  }
 
   @media (max-width: 600px) {
     .decks{
@@ -194,6 +258,9 @@ width: 100px;
       right: 18px;
     }
 
+    .unoNavLogo{
+      left: 80vw;
+    }
     
     }
     

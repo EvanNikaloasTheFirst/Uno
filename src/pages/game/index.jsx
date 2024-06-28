@@ -109,15 +109,17 @@ export default function Home() {
   // sets up the card deck for each player
   useEffect(() => {
     retrieveAmount();
+    if(cardsDeck.length !=0 || cardsDeck.length != null){
     setMe(Game.initPlayerDeck(cardsDeck)); // Set Me directly
     setPlayerOne(Game.initPlayerDeck(cardsDeck));
     setPlayerTwo(Game.initPlayerDeck(cardsDeck));
     setPlayerThree(Game.initPlayerDeck(cardsDeck));
+    }
   }, []);
 
 
-  var playerTurns = playerNames;
 
+  var playerTurns = playerNames;
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
       const newCount = (prevCount + 1) % playerNames.length;
@@ -126,7 +128,7 @@ export default function Home() {
 setCount(newCount)
       
     });
-  }, [playerNames.length]);
+  }, [playerTurns.length]);
   
   
 
@@ -232,7 +234,18 @@ useEffect(() => {
   checkIfWon()
   }
 
+var showPlayersTurn =(arr) =>{
 
+  if(arr == null || arr == undefined){
+      setPlayerTurn(thePlayersName)
+    return thePlayersName
+  }else {
+    return playersTurn
+  }
+
+
+
+}
 
   const checkIfWon = () =>{
     if(PlayerOne.length == 0 ){
@@ -280,7 +293,7 @@ useEffect(() => {
         setPlayerGo()
       break;
 
-      case 'Me':
+      case thePlayersName:
         newDeck = [...Me, cardToAdd];
         setMe(newDeck);
         setPlayerGo()
@@ -288,7 +301,7 @@ useEffect(() => {
         
 
       default:
-        console.log("null")
+        setPlayerGo()
     }
   }
 
@@ -336,6 +349,25 @@ useEffect(() => {
         <link rel="icon" href="/uno_logo.png" />
       </Head>
       <main className={`${mainStyles.main}`}>
+        <div className={styles.navigationBar}>
+          <ul>
+            <li>
+              <div className={styles.save}>
+                <img src={"/sprites/images/saveIcon.png"} alt="Save" className={styles.menuIcons}/>
+                <p>Save</p>
+              </div>
+            </li>
+            <li>
+            <div className={styles.exit}>
+            <img src={"/sprites/images/exitIcon.png"} alt="Exit" className={styles.menuIcons}/>
+            <a href='/'><p>Exit</p></a>
+            </div>
+            </li>
+          </ul>
+
+          <a href='http://localhost:3001/'>  <img src={"/uno_logo.png"} alt="uno" className={styles.unoNavLogo} /></a>
+
+        </div>
         <div className={styles.gameboard}>
 
 {gameIsFinished == true &&(
@@ -343,7 +375,7 @@ useEffect(() => {
     <p>WINNER:{gameWinner} </p>
           <ul>
           <li> <a href='http://localhost:3001/game'><button>Play Again?</button></a></li>
-          <li> <a href='http://localhost:3001'><button>home</button></a></li>
+          <li> <a href='http://localhost:3001/'><button>home</button></a></li>
           </ul> 
       </div>
       
@@ -391,7 +423,7 @@ useEffect(() => {
               </li>
             </ul>
             <p className={styles.displayTurn}>
-              {playersTurn ? `${playersTurn}'s Turn` : "NO player set"}</p>
+              {showPlayersTurn(playersTurn)} 's turn</p>
 </div>
 
 
@@ -416,8 +448,8 @@ useEffect(() => {
           
    </div>
 {/* End of Players Deck */}
+{storedAmount >= 2 ?(
 <div className={styles.playerTwoCards}>
-  
 <ul>
 <p className={styles.playernamesStyle}>Jerry: {PlayerOne.length}</p>
 {/* Loop over the arry of objects (uno array cards) */}
@@ -436,30 +468,34 @@ onClick={() => handleCardClick(item)}
 </ul>
 
 </div>
-
-
-{storedAmount >= 2 && (
-
-<div className={styles.playerThreeCards}>
-       <ul>
-        <p className={styles.playernamesStyle}>Johan: {PlayerTwo.length}</p>
-{/* Loop over the arry of objects (uno array cards) */}
-{[...PlayerTwo.values()].map((item, index) => (
-  
-          <li key={index}> 
-            <img 
-              src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
-              alt="" 
-              className={styles.unoCard}  
-              onClick={() => handleCardClick(item)}
-            /> 
-          </li>
-        ))}
-
-          </ul>
-          
-   </div>
+):(
+    // Placeholder or alternate content when the condition is not met
+    <p></p>
 )}
+
+
+{storedAmount >= 2 || storedAmount === 1 ? (
+  <div className={styles.playerThreeCards}>
+    <ul>
+      <p className={styles.playernamesStyle}>Johan: {PlayerTwo.length}</p>
+      {/* Loop over the array of objects (uno array cards) */}
+      {[...PlayerTwo.values()].map((item, index) => (
+        <li key={index}> 
+          <img 
+            src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+            alt="" 
+            className={styles.unoCard}  
+            onClick={() => handleCardClick(item)}
+          /> 
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  // Placeholder or alternate content when the condition is not met
+  <p></p>
+)}
+
 
 
 {storedAmount >= 3 && (
@@ -487,6 +523,12 @@ onClick={() => handleCardClick(item)}
         </div>
         
       </main>
+      <footer >
+      <a href='https://www.instagram.com/ev.codes/'><p>Created by @ev.codes</p></a>
+      </footer>
     </>
   );
 }
+
+
+// To Do deal with players turn turning to null
