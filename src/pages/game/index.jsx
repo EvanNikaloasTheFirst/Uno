@@ -122,10 +122,26 @@ export default function Home() {
   var playerTurns = playerNames;
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
-      const newCount = (prevCount + 1) % playerNames.length;
-      console.log("Whos go > " + prevCount);
+      var num =0;
+      switch(prevCount){
+        case 0:
+        num= 1;
+        break;
+        
+        case 1:
+        num = 2;
+        break;
+        
+        case 2:
+        num =  0;
+        break;
+        
+        default:
+        return 0;
+        }
 
-setCount(newCount)
+
+setCount(num)
       
     });
   }, [playerTurns.length]);
