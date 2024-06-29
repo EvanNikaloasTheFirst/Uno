@@ -6,6 +6,7 @@ import Game from "@/classes/Game.jsx";
 import Player from "@/classes/Player.jsx";
 import React, { useState, useEffect, useCallback} from 'react';
 import { appendMutableCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import Navbar from "components/navbar";
 
 export default function Home() {
   
@@ -365,25 +366,7 @@ var showPlayersTurn =(arr) =>{
         <link rel="icon" href="/uno_logo.png" />
       </Head>
       <main className={`${mainStyles.main}`}>
-        <div className={styles.navigationBar}>
-          <ul>
-            <li>
-              <div className={styles.save}>
-                <img src={"/sprites/images/saveIcon.png"} alt="Save" className={styles.menuIcons}/>
-                <p>Save</p>
-              </div>
-            </li>
-            <li>
-            <div className={styles.exit}>
-            <img src={"/sprites/images/exitIcon.png"} alt="Exit" className={styles.menuIcons}/>
-            <a href='/'><p>Exit</p></a>
-            </div>
-            </li>
-          </ul>
-
-          <a href='http://localhost:3001/'>  <img src={"/uno_logo.png"} alt="uno" className={styles.unoNavLogo} /></a>
-
-        </div>
+       <Navbar/>
         <div className={styles.gameboard}>
 
 {gameIsFinished == true &&(
@@ -427,9 +410,9 @@ var showPlayersTurn =(arr) =>{
               <li>
             <p>Draw</p>
             <img
-              src={"sprites/draw.png"}
-              alt=""
-              className={styles.unoCard}
+              src={"sprites/special-cards/deck-img.png"}
+              alt="Draw cards img"
+              className={styles.drawCards}
               onClick={() =>{
                 drawCard(playersTurn)
                 console.log(playersTurn + " is drawing a card");

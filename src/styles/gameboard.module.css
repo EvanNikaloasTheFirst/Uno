@@ -42,6 +42,11 @@ height: auto;
   padding: 6px;
 }
 
+.navigationBar a:any-link{
+  text-decoration: none;
+  color: green;
+  font-weight: 500;
+}
 .unoNavLogo{
   width: 90px;
   height: auto;
@@ -71,6 +76,10 @@ height: auto;
 /* Styling the cardds and players deck */
 .unoCard{
     width: 40px;
+}
+
+.drawCards{
+  width: 100px;
 }
 
 .decks {
