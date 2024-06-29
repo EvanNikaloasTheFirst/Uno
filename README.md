@@ -37,7 +37,7 @@ https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/c00eb6bc-e96e-42bb-8
 **Build currently in progress! 🚧**
 
 ### Next task:
-- [ ] Deal with players turn setting as null
+- [ ] Implement special cards (Reverse,Skip, Draw +4)
 
 ## Functionality 
 Check Points
@@ -57,6 +57,7 @@ Check Points
 - [ ] Add animations to card picked up and placed down
 - [x] Begin Unit Testing
 - [ ] Begin Integration Testing
+- [x] Deal with players turn setting as null
 
 ## Testing 
 - [ ] Complete Unit Testing
