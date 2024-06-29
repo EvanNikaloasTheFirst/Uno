@@ -122,27 +122,27 @@ export default function Home() {
   var playerTurns = playerNames;
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
-      var num =0;
-      switch(prevCount){
-        case 0:
-        num= 1;
-        break;
-        
+      let num;
+
+      switch (storedAmount) {
         case 1:
-        num = 2;
-        break;
-        
+          num = prevCount === 0 ? 1 : 0;
+          break;
+
         case 2:
-        num =  0;
-        break;
-        
+          num = (prevCount + 1) % 3;
+          break;
+
+        case 3:
+          num = (prevCount + 1) % 4;
+          break;
+
         default:
-        return 0;
-        }
+          num = 0;
+          break;
+      }
 
-
-setCount(num)
-      
+      return num;
     });
   }, [playerTurns.length]);
   
