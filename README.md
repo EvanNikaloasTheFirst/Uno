@@ -60,10 +60,17 @@ Check Points
 
 ## Testing 
 - [ ] Complete Unit Testing
+- [x] Complete Home Page Unit Testing
+- [ ] Complete GamePlay Unit Testing
 - [ ] Complete User Testing
 - [ ] Complete Integration testing
 
 
 -------------
 ![Designer (15)](https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/4d553f41-3c34-4e31-9bc8-4fdcefcdf3b7)
+
+-------------
+![Screenshot 2024-06-29 at 16 08 55](https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/0c6f31ff-060e-4817-8276-dbcd50f2edbc)
+
+
 
