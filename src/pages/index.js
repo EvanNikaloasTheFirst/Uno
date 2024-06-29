@@ -69,6 +69,8 @@ export default function Home() {
               <p>Enter your name</p>
 <input type="text" placeholder="Enter name.." className={styles.searchbox} value={playersName}
 onChange={handleInput}
+onBlur={handleInput} 
+// blur add focus to the input to save the value (Used to saved the value)
 />
             </div>
 
@@ -80,8 +82,8 @@ onChange={handleInput}
 
               <ul className={styles.amtBtns}>
                 {amountOfPlayer.map(amount => (
-                  <li key={amount}>
-                    <a href="/game">
+                  <li key={amount} className={styles.quanityBtn}>
+                    <a href="/game"  >
                     <button
           className={styles.startGame}
           onClick={() => selectedPlayers(amount)}> 
