@@ -53,11 +53,10 @@ Check Points
 - [x] Make gameboard responsive
 - [x] Allow customization of players name
 - [ ] Implement special cards (+4, Skip, goes, etc...)
-- [ ] Deal with null player set bug 🐛
+- [x] Deal with null player set bug 🐛
 - [ ] Add animations to card picked up and placed down
 - [x] Begin Unit Testing
 - [ ] Begin Integration Testing
-- [x] Deal with players turn setting as null
 
 ## Testing 
 - [ ] Complete Unit Testing
