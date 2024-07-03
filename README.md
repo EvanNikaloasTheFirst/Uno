@@ -65,14 +65,6 @@ Check Points
 - [ ] Complete User Testing
 - [ ] Complete Integration testing
 
-
-
-
-## Testing results 🧪
-
-Home Page:
-![Screenshot 2024-06-29 at 16 11 18](https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/e7174881-3102-4107-83b8-033b3d485296)
-
 -------------
 ![Designer (15)](https://github.com/EvanNikaloasTheFirst/Uno/assets/94329210/4d553f41-3c34-4e31-9bc8-4fdcefcdf3b7)
 
