@@ -167,14 +167,17 @@ useEffect(() => {
       }
     }
     if (index !== null && card !== null) {
-      // Log the card placed down
-      console.log("Card placed down " + card.value + " : " + card.colour);
+
 
       // Create a new array without the matching card
       const newCards = [...Me.slice(0, index), ...Me.slice(index + 1)];
 
       // Update the state with the new array
       setMe(newCards); // updates (my) card array
+
+      if(card.name === "Draw"){
+        
+      }
 
       const newDeck = [...deck, card]; // get current array and adds the card just placed down into array
       setDeck(newDeck);
@@ -290,7 +293,7 @@ var showPlayersTurn =(arr) =>{
     var cardToAdd = cardsDeck[value];
 
     var newDeck = null;;
-
+try{
     if(playersTurn == name){
     switch(name){
       case 'Jerry':
@@ -320,6 +323,9 @@ var showPlayersTurn =(arr) =>{
       default:
         setPlayerGo()
     }
+  }}
+  catch(e){
+      console.log('error')
   }
 
   }   
@@ -345,6 +351,7 @@ var showPlayersTurn =(arr) =>{
   const handleCardClick = (item) => {
     if (playersTurn === thePlayersName) {
       if (Game.isCardSelectedValid(deck, item)) {
+
         placeCard(item);
         checkIfWon();
         setPlayerGo();
@@ -390,10 +397,9 @@ var showPlayersTurn =(arr) =>{
               {/* Displaay blank card if no card has been placed down */}
               {deck.length > 0 && deck[deck.length - 1] ? (
   <img
-    src={`/sprites/${deck[deck.length - 1] .colour}/${deck[deck.length - 1] .colour}-${deck[deck.length - 1] .value}.png`}
+    src={deck[deck.length-1].imgSrc  }
     alt=""
-    className={styles.unoCard}
-  />
+    className={styles.unoCard}/>
 ): (
   <img
               src={"sprites/draw.png"}
@@ -435,7 +441,7 @@ var showPlayersTurn =(arr) =>{
   
           <li key={index}> 
             <img 
-              src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+              src={item.imgSrc}
               alt="" 
               className={styles.unoCard}  
               onClick={() => handleCardClick(item)}
@@ -456,7 +462,7 @@ var showPlayersTurn =(arr) =>{
 
 <li key={index}>
 <img
-src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+src={item.imgSrc}
 alt=""
 className={styles.unoCard}
 onClick={() => handleCardClick(item)}
@@ -481,7 +487,7 @@ onClick={() => handleCardClick(item)}
       {[...PlayerTwo.values()].map((item, index) => (
         <li key={index}> 
           <img 
-            src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+          src={item.imgSrc}
             alt="" 
             className={styles.unoCard}  
             onClick={() => handleCardClick(item)}
@@ -507,7 +513,7 @@ onClick={() => handleCardClick(item)}
 
 <li key={index}>
 <img
-src={`/sprites/${item.colour}/${item.colour}-${item.value}.png`}
+src={item.imgSrc}
 alt=""
 className={styles.unoCard}
 onClick={() => handleCardClick(item)}

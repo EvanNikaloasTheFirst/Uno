@@ -51,6 +51,7 @@ export default function Home() {
     <>
       <Head>
         <title>Uno by Evangelos</title>
+        
         <meta name="description" content="Uno by Evangelos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/uno_logo.png" />
