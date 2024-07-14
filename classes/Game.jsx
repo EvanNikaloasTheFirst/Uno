@@ -11,22 +11,24 @@ class Game{
 
         var cardsDeck = [];
         // appends the array of each card into the deck
-        cardsDeck.push(...this.generateCards("green"));
-        cardsDeck.push(...this.generateCards("blue"));
-        cardsDeck.push(...this.generateCards("yellow"));
-        cardsDeck.push(...this.generateCards("red"));
+        // cardsDeck.push(...this.generateCards("green"));
+        // cardsDeck.push(...this.generateCards("blue"));
+        // cardsDeck.push(...this.generateCards("yellow"));
+        // cardsDeck.push(...this.generateCards("red"));
 
-        // // // Generate the draw +2 cards
+        // This is where all the special cards are made
+
+        // Generate the draw +2 cards
         cardsDeck.push(...this.generateSpecialCards("Draw",colors,2,"/sprites/special-cards/draw/draw_2_"))
 
         // Generates the reverse Cards
-        cardsDeck.push(...this.generateSpecialCards("Reverse",colors,0,"/sprites/special-cards/reverse/reverse"))
+        cardsDeck.push(...this.generateSpecialCards("Reverse",colors,0,"/sprites/special-cards/reverse/reverse_"))
 
         cardsDeck.push(...this.generateSpecialCards("Skip",colors,0,"/sprites/special-cards/skip/skip_"))
 
-        var changeColour = new Card("Change","red",0,"/sprites/special-cards/change/change.png");
+        var changeColour = new Card("Change","Any",0,"/sprites/special-cards/change/change.png");
 
-        var drawFour = new Card("Draw","red",4,"/sprites/special-cards/change/Draw4.png");
+        var drawFour = new Card("Draw","Any",4,"/sprites/special-cards/change/Draw4.png");
  
 
         
@@ -118,13 +120,15 @@ static generateSpecialCards(cardType,colors,value,pathToSrc){
         if (deck.length == 0) return true;
         
 
-        if(cardToBePlaced.value === deck[deck.length - 1].value || cardToBePlaced.colour === 
-        deck[deck.length-1].colour){
+        if(
+            (cardToBePlaced.value === deck[deck.length - 1].value || 
+             cardToBePlaced.colour === deck[deck.length - 1].colour) || 
+             deck[deck.length - 1].colour === 'Any' 
+             || cardToBePlaced.colour == 'Any'
+        ){
             return true;
         }else{
-            for(let i =0; i < deck.length; i ++){
-                console.log(deck[i].value + " In deck " + deck[i].colour )
-            }
+           
             return false;
         }
 

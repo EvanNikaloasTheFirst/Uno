@@ -25,7 +25,9 @@ export default function Home() {
   const [gameIsFinished, setGetIsFinished] = useState(false);
   const [gameWinner,setGameWinner] = useState(null);
   var [playerNames,setPlayerNames] = useState([]);
- const [storedAmount, setStoredAmount] = useState(null); // set state 
+ const [storedAmount, setStoredAmount] = useState(null); 
+
+ const [nextPlayer,setNextPlayer] = useState(0)
 
 
  useEffect(() =>{
@@ -123,31 +125,39 @@ export default function Home() {
   var playerTurns = playerNames;
   const setPlayerGo = useCallback(() => {
     setCount((prevCount) => {
-      let num;
-
+      let num = 0;
       switch (storedAmount) {
         case 1:
           num = prevCount === 0 ? 1 : 0;
-          break;
+          setNextPlayer(num + 1); // Set next player to num + 1
 
+          break;
+  
         case 2:
           num = (prevCount + 1) % 3;
+          setNextPlayer(num+1)
           break;
-
+  
         case 3:
           num = (prevCount + 1) % 4;
-          break;
-
+          setNextPlayer(num); 
+            break;
+  
         default:
           num = 0;
+          setNextPlayer(num); // Set next player to 1 (num + 1)
           break;
       }
-
+  
+      
       return num;
     });
   }, [playerTurns.length]);
   
-  
+  useEffect(() => {
+    console.log("Next Player:", playerNames[nextPlayer]);
+  }, [nextPlayer, playerNames]);
+
 
 useEffect(() => {
   setPlayerTurn(playerTurns[count]);
@@ -155,8 +165,6 @@ useEffect(() => {
 
 
   const placeCard = (card) =>{
-    
-
     var index = null;
     // Looks for the card that has been selected & stores it in a variable
     for (let i = 0; i < Me.length; i++){
@@ -169,14 +177,36 @@ useEffect(() => {
     if (index !== null && card !== null) {
 
 
-      // Create a new array without the matching card
+    //  Creates a new array with out the card just placed
       const newCards = [...Me.slice(0, index), ...Me.slice(index + 1)];
 
       // Update the state with the new array
       setMe(newCards); // updates (my) card array
 
       if(card.name === "Draw"){
-        
+
+        switch(card.value){
+// When the draw 2 card has been pulled
+          case 2:
+            alert(playerNames[nextPlayer])
+            draws(playerNames[nextPlayer],2)
+            break;
+
+// When the draw four card has been pulled
+          case 4:
+            alert(playerNames[nextPlayer])
+            draws(playerNames[nextPlayer],4)
+            break;
+
+          default:
+            console.log('err')
+
+        }
+        // setPlayerGo()
+      }
+
+      else if(card.name === "Skip"){
+          setPlayerGo()
       }
 
       const newDeck = [...deck, card]; // get current array and adds the card just placed down into array
@@ -189,7 +219,6 @@ useEffect(() => {
   const playAi = (arr,name,deck) =>{
     var index = null;
     //  Looks for the best card to place on deck
-    // var card = Game.selectCard(arr,cardsDeck);
     var card;
     for (let i = 0; i < arr.length; i++){
       if (arr[i].colour == deck[deck.length-1].colour ||arr[i].value == deck[deck.length-1].value){
@@ -201,6 +230,14 @@ useEffect(() => {
 
     for(let i = 0; i < arr.length; i++){
   
+      if(card.name === "Skip"){
+        // alert("Skipped")
+          setPlayerGo()
+      } 
+
+      if(card.name === "Draw"){
+        draws[playerNames[nextPlayer],card.value]
+    } 
       if (arr[i].colour == deck[deck.length - 1].colour ){
         index = i;
         break;
@@ -213,16 +250,13 @@ useEffect(() => {
     try{
     if (card != null && card.value == deck[deck.length - 1].value ||
       card.colour == deck[deck.length - 1].colour) {
-      // Log the card placed down
-      console.log(playersTurn + "...Card placed down " + card.value + " : " + card.colour);
-      // Create a new array without the matching card
+
       const newCards = [...arr.slice(0, index), ...arr.slice(index + 1)];
       // Update the state with the new array
       // updates (my) card array
       switch(name){
         case 'Jerry':
           setPlayerOne(newCards);
-
         break;
 
         case 'Johan':
@@ -241,7 +275,7 @@ useEffect(() => {
       const newDeck = [...deck, card];
        // get current array and adds the card just placed down into array
       setDeck(newDeck);
-    }else if(playersTurn  == name){
+    }else if(playersTurn == name){
     drawCard(playersTurn)
   }
 
@@ -262,9 +296,6 @@ var showPlayersTurn =(arr) =>{
   }else {
     return playersTurn
   }
-
-
-
 }
 
   const checkIfWon = () =>{
@@ -294,7 +325,7 @@ var showPlayersTurn =(arr) =>{
 
     var newDeck = null;;
 try{
-    if(playersTurn == name){
+    // if(playersTurn == name){
     switch(name){
       case 'Jerry':
         newDeck = [...PlayerOne, cardToAdd];
@@ -323,7 +354,8 @@ try{
       default:
         setPlayerGo()
     }
-  }}
+  // }
+}
   catch(e){
       console.log('error')
   }
@@ -352,6 +384,12 @@ try{
     if (playersTurn === thePlayersName) {
       if (Game.isCardSelectedValid(deck, item)) {
 
+        if(item.name === "Draw"){
+            alert('bang 2 me')
+            console.log(item.value + " <<<<")
+              draws(playerNames[nextPlayer],item.value)
+
+        }
         placeCard(item);
         checkIfWon();
         setPlayerGo();
@@ -362,6 +400,68 @@ try{
       handleAITurn();
     }
   };
+
+
+
+  const draws = (name,values) => {
+    var value = Math.floor(Math.random() * cardsDeck.length);
+    var value2 = Math.floor(Math.random() * cardsDeck.length);
+    var value3 = Math.floor(Math.random() * cardsDeck.length);
+    var value4 = Math.floor(Math.random() * cardsDeck.length);
+
+    var cardToAdd = cardsDeck[value];
+    var cardToAdd2 = cardsDeck[value2];
+    var cardToAdd3 = cardsDeck[value3];
+    var cardToAdd4 = cardsDeck[value4];
+
+    var newDeck = null;
+    try {
+        switch (name) {
+            case 'Jerry':
+                newDeck = [...PlayerOne, cardToAdd, cardToAdd2];
+                if(values == 4) 
+                {
+                  newDeck = [...PlayerOne,cardToAdd,cardToAdd2,cardToAdd3,cardToAdd4];
+                }
+                setPlayerOne(newDeck);
+                break;
+
+            case 'Johan':
+                newDeck = [...PlayerTwo, cardToAdd, cardToAdd2];
+                if(values == 4) 
+                {
+                  newDeck = [...PlayerTwo,cardToAdd,cardToAdd2,cardToAdd3,cardToAdd4];
+                }
+                setPlayerTwo(newDeck);
+                break;
+
+            case 'Tracey':
+                newDeck = [...PlayerThree, cardToAdd, cardToAdd2];
+                if(values == 4) 
+                {
+                  newDeck = [...PlayerThree,cardToAdd,cardToAdd2,cardToAdd3,cardToAdd4];
+                }
+                setPlayerThree(newDeck);
+                break;
+
+            case thePlayersName:
+                newDeck = [...Me, cardToAdd, cardToAdd2];
+                if(values == 4) 
+                {
+                  newDeck = [...Me,cardToAdd,cardToAdd2,cardToAdd3,cardToAdd4];
+                }
+                setMe(newDeck);
+                break;
+
+            default:
+                // Handle any other cases if necessary
+        }
+    } catch (e) {
+        console.log('error', e);
+    }
+}
+
+  
   
 
   return (
