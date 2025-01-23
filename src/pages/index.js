@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useState } from "react";
 import { useRouter } from 'next/router';
+import Navbar from "components/navbar";
+import HomeBar from "components/home-navbar";
 
 export default function Home() {
 
@@ -49,11 +51,13 @@ export default function Home() {
     <>
       <Head>
         <title>Uno by Evangelos</title>
+        
         <meta name="description" content="Uno by Evangelos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/uno_logo.png" />
       </Head>
       <main className={`${styles.main}`}>
+        <HomeBar/>
         <div className={styles.WelcomeBlock}>
         <div>
           <img src="/uno_logo.png" className={styles.unoLogo} alt="unoLogo"/>

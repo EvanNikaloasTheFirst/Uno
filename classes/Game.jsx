@@ -7,12 +7,36 @@ import PropTypes from 'prop-types';
 class Game{
 
     static gameStart(){
+        var colors = ["red","blue","green","yellow"]
+
         var cardsDeck = [];
         // appends the array of each card into the deck
-        cardsDeck.push(...this.generateCards("green"));
-        cardsDeck.push(...this.generateCards("blue"));
-        cardsDeck.push(...this.generateCards("yellow"));
-        cardsDeck.push(...this.generateCards("red"));
+        // cardsDeck.push(...this.generateCards("green"));
+        // cardsDeck.push(...this.generateCards("blue"));
+        // cardsDeck.push(...this.generateCards("yellow"));
+        // cardsDeck.push(...this.generateCards("red"));
+
+        // This is where all the special cards are made
+
+        // Generate the draw +2 cards
+        cardsDeck.push(...this.generateSpecialCards("Draw",colors,2,"/sprites/special-cards/draw/draw_2_"))
+
+        // Generates the reverse Cards
+        cardsDeck.push(...this.generateSpecialCards("Reverse",colors,0,"/sprites/special-cards/reverse/reverse_"))
+
+        cardsDeck.push(...this.generateSpecialCards("Skip",colors,0,"/sprites/special-cards/skip/skip_"))
+
+        var changeColour = new Card("Change","Any",0,"/sprites/special-cards/change/change.png");
+
+        var drawFour = new Card("Draw","Any",4,"/sprites/special-cards/change/Draw4.png");
+ 
+
+        
+        cardsDeck.push(changeColour)
+        cardsDeck.push(drawFour)
+
+
+        
         return cardsDeck;
     }
 
@@ -27,19 +51,19 @@ static generateCards(colour){
     var arrayOfCards = [];
 
     // Determine the path to the sprite based on the colour
-    var pathToSprite;
+    var pathToSprite = '/sprites';
     switch (colour) {
         case 'green':
-            pathToSprite = '/green';
+            pathToSprite += '/green';
             break;
         case 'blue':
-            pathToSprite = '/blue';
+            pathToSprite += '/blue';
             break;
         case 'red':
-            pathToSprite = '/red';
+            pathToSprite += '/red';
             break;
         case 'yellow':
-            pathToSprite = '/yellow';
+            pathToSprite += '/yellow';
             break;
         default:
             pathToSprite = ''; // Set a default value or handle invalid colours
@@ -48,12 +72,27 @@ static generateCards(colour){
     // Generate 19 cards with random values
     for (var i = 0; i < 19; i++){
         var value = Math.floor(Math.random()* 9) + 1;
-        var newCard = new Card("Normal", colour, value, 'sprites' + pathToSprite + "/" + value);
+        var newCard = new Card("Normal", colour, value,  pathToSprite + "/"+colour+"-"+ value+".png");
         arrayOfCards.push(newCard);
     }
 
 return arrayOfCards;
 }
+
+
+static generateSpecialCards(cardType,colors,value,pathToSrc){
+    var allCards=[];
+
+    for(let i = 0; i < colors.length; i++){
+        var card = new Card(cardType,colors[i],value,pathToSrc+colors[i]+".png")
+        allCards.push(card);
+    }
+
+    return allCards;
+}
+
+  
+
 
     static generateRandomNumber(){
         switch (colour){
@@ -72,29 +111,24 @@ return arrayOfCards;
                     }
     }
 
-    static generateSpecialCards(name){
-            newCard= this.Card;
-            newCard.colour = 
-            newCard.imgSrc = " / " + newCard.colour + "/" + name;
-            return newCard;
-    }
+
     
 
     static isCardSelectedValid(deck,cardToBePlaced){
 
 
         if (deck.length == 0) return true;
+        
 
-        if(cardToBePlaced.value === deck[deck.length - 1].value || cardToBePlaced.colour === 
-        deck[deck.length-1].colour){
+        if(
+            (cardToBePlaced.value === deck[deck.length - 1].value || 
+             cardToBePlaced.colour === deck[deck.length - 1].colour) || 
+             deck[deck.length - 1].colour === 'Any' 
+             || cardToBePlaced.colour == 'Any'
+        ){
             return true;
         }else{
-            console.log(deck.length)
-console.log(cardToBePlaced.value + " My card " + cardToBePlaced.colour)
-
-            for(let i =0; i < deck.length; i ++){
-                console.log(deck[i].value + " In deck " + deck[i].colour )
-            }
+           
             return false;
         }
 
